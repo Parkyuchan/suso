@@ -28,8 +28,6 @@ public class Correct {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    //private Integer member_id;
-
     private String mem_ans;
 
     @CreationTimestamp

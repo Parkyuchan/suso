@@ -25,14 +25,14 @@
     <table>
         <thead>
         <tr>
-            <th>퀴즈 번호</th>
+            <th>퀴즈 목록</th>
         </tr>
         </thead>
         <tbody>
 
-        <tr th:each="quiz : ${list}">
+        <tr th:each="quiz, rowStat : ${list}">
             <td>
-                <a th:text="${quiz.quiz_id}" th:href="@{/quiz(id=${quiz.quiz_id})}"></a>
+                <a th:text="${rowStat.index + 1} + '번 문제 풀기'" th:href="@{/quiz/{id}(id=${quiz.quiz_id})}"></a>
             </td>
         </tr>
         </tbody>

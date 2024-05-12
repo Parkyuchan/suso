@@ -28,7 +28,7 @@
 
 <body>
 <div class="layout">
-    <form th:action="@{/admin/sign-language}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/admin/sign}" method="post" enctype="multipart/form-data">
         <input name="title" type="text" placeholder="수어 사전의 정답을 입력하세요">
         <textarea name="sign_desc" placeholder="수어 사전의 설명을 입력하세요"></textarea>
         <input type="file" name="file" accept="video/*">

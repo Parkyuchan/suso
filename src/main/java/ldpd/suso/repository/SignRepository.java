@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface SignRepository extends JpaRepository<Sign, Integer> {
 
     Page<Sign> findByTitleContaining(String searchKeyword, Pageable pageable);
+
+    Sign findByTitle(String title);
 }

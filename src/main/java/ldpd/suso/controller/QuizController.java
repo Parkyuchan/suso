@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class QuizController {
 
     private final QuizService quizService;
 
-    @GetMapping("/quiz/list")
+    @GetMapping("/quiz/list")   //퀴즈 글 리스트에 대한 Get 방식 프로토콜 메소드
     public String quizList(Model model) {
 
         List<Quiz> quiz = null;
@@ -25,8 +26,8 @@ public class QuizController {
         return "quiz/quiz_list";
     }
 
-    @GetMapping("/quiz")
-    public String quizDetail(Model model, Integer id){
+    @GetMapping("/quiz/{id}")   //퀴즈 상세 페이지에 대한 Post 방식 프로토콜 메소드
+    public String quizDetail(@PathVariable("id") Integer id, Model model){
 
         model.addAttribute("quiz", quizService.quizDetail(id));
         return "quiz/quiz_detail";

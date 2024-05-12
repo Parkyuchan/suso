@@ -32,11 +32,11 @@
     </thead>
     <tbody>
 
-    <tr th:each="sign : ${list}">
+    <tr th:each="sign, rowStat : ${list}">
 
-      <td th:text="${sign.id}"></td>
+      <td th:text="${rowStat.index + 1}"></td>
       <td>
-        <a th:text="${sign.title}" th:href="@{/sign(id=${sign.id})}"></a>
+        <a th:text="${sign.title}" th:href="@{/sign/{id}(id = ${sign.id})}"></a>
       </td>
     </tr>
     </tbody>

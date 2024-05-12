@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,18 +26,28 @@ public class SignController {
     private final SignService signService;
     private final QuizService quizService;
 
-    @GetMapping("/admin/sign")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")  //ADMIN권한을 가진 사용자만 메소드 접근 가능
+    @GetMapping("/admin/sign")  //수어 등록에 대한 Get 방식 프로토콜 메소드
     public String registerSign(){
         return "sign/sign_register";
     }
 
-    @PostMapping("/admin/sign")
-    public String registerSign(Sign sign, Model model, MultipartFile file) throws Exception {
+    @PreAuthorize("hasRole('ROLE_ADMIN')")  //ADMIN권한을 가진 사용자만 메소드 접근 가능
+    @PostMapping("/admin/sign") //수어 등록에 대한 Post 방식 프로토콜 메소드
+    public String registerSign(Sign sign, Model model, MultipartFile file, Authentication authentication) throws Exception {
 
         final long MAX_VIDEO_LENGTH = 100 * 1024 * 1024;
 
-        if(file.getSize() > MAX_VIDEO_LENGTH) {
-            throw new IllegalArgumentException("업로드된 영상의 길이가 너무 깁니다.");
+        if (file.getSize() >= MAX_VIDEO_LENGTH) {
+            model.addAttribute("message", "업로드된 영상의 길이가 너무 깁니다.");
+            model.addAttribute("searchUrl", "/admin/sign");
+            return "message";
+        }
+
+        if(file.isEmpty() || sign.getTitle().isEmpty() || sign.getSign_desc().isEmpty()){
+            model.addAttribute("message", "수어명, 수어 설명, 파일은 필수 내용입니다.");
+            model.addAttribute("searchUrl", "/admin/sign");
+            return "message";
         }
 
         signService.registerSign(sign, file);
@@ -49,7 +61,7 @@ public class SignController {
         return "message";
     }
 
-    @GetMapping("/sign/list")
+    @GetMapping("/sign/list")   //수어 목록에 대한 Get 방식 프로토콜 메소드(수어 글 10개씩 보이게 함)
     public String signList(Model model,
                            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                            String searchKeyword) {   //0페이지부터 시작하고 글은 10개씩, 내림차순으로 페이지 보여주기
@@ -81,15 +93,16 @@ public class SignController {
         return "sign/sign_list";
     }
 
-    @GetMapping("/sign") //localhost:8080/board/view?id=1
-    public String signDetail(Model model, Integer id){
+    @GetMapping("/sign/{id}") //수어 글 디테일 페이지에 대한 Get 방식 프로토콜 메소드
+    public String signDetail(@PathVariable("id") Integer id, Model model){
 
         model.addAttribute("sign", signService.signDetail(id));
         return "sign/sign_detail";
 
     }
 
-    @GetMapping("/sign/delete")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")  //ADMIN권한을 가진 사용자만 메소드 접근 가능
+    @GetMapping("/sign/delete") //수어 삭제에 대한 Get 방식 프로토콜 메소드
     public String signDelete(Integer id, Model model){
 
         signService.signDelete(id);
@@ -100,16 +113,18 @@ public class SignController {
         return "message";
     }
 
-    @GetMapping("/sign/modify/{id}")
-    public String signModify(@PathVariable("id") Integer id, Model model){
+    @PreAuthorize("hasRole('ROLE_ADMIN')")  //ADMIN권한을 가진 사용자만 메소드 접근 가능
+    @GetMapping("/sign/update/{id}")    //수어 글 수정에 대한 Get 방식 프로토콜 메소드
+    public String signUpdate(@PathVariable("id") Integer id, Model model){
         //PathVariable은 {id} 부분이 인식돼서 Integer id로 들어온다, 그리고 url이 깔끔해짐
 
         model.addAttribute("sign", signService.signDetail(id));
 
-        return "sign/sign_modify";
+        return "sign/sign_update";
     }
 
-    @PostMapping("/sign/update/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")  //ADMIN권한을 가진 사용자만 메소드 접근 가능
+    @PostMapping("/sign/update/{id}")   //수어 글 수정에 대한 Post 방식 프로토콜 메소드
     public String signUpdate(@PathVariable("id") Integer id, Sign sign, Model model, MultipartFile file) throws Exception{
 
         Sign signTemp = signService.signDetail(id);   //기존에 담긴 board 데이터가 boardTemp로 들어옴
@@ -121,6 +136,12 @@ public class SignController {
         signTemp.setFilename(sign.getFilename());
         signTemp.setFilepath(sign.getFilepath());
 
+        if(file.isEmpty() || sign.getTitle().isEmpty() || sign.getSign_desc().isEmpty()){
+            model.addAttribute("message", "수어명, 수어 설명, 파일은 필수 내용입니다.");
+            model.addAttribute("searchUrl", "/sign/update/" + id);
+            return "message";
+        }
+
         signService.registerSign(signTemp, file);  //수정이 완료됐으므로 write를 이용해서 다시 쓰기
 
 
@@ -128,5 +149,12 @@ public class SignController {
         model.addAttribute("searchUrl", "/sign/list");
 
         return "message";
+    }
+
+    @GetMapping("/sign/translate")  //수어 번역에 대한 Get 방식 프로토콜 메소드
+    public String signTranslate() {
+
+
+        return "sign/sign_translate";
     }
 }

@@ -1,11 +1,15 @@
 package ldpd.suso.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Data
 public class Member {

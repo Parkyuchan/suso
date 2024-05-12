@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>수어 번역</title>
+</head>
+<body>
+<h1>수어 번역 페이지</h1>
+<h3>미완성</h3>
+<video id="video" width="1000" height="500" autoplay></video>
+
+<script>
+        const video = document.getElementById('video');
+        let mediaRecorder;
+        let chunks = [];
+
+        // 웹캠 비디오 스트림 가져오기
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+                mediaRecorder = new MediaRecorder(stream);
+                mediaRecorder.ondataavailable = handleDataAvailable;
+            })
+            .catch(err => {
+                console.error('Error accessing webcam:', err);
+            });
+    </script>
+</body>
+</html>

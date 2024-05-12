@@ -19,8 +19,10 @@ public class SignService {
     @Autowired
     private SignRepository signRepository;
 
-    public void registerSign(Sign sign, MultipartFile file) throws Exception {
-        if (file != null && !file.isEmpty()) {
+    // Service 메서드는 DB와 직접적인 연관
+
+    public void registerSign(Sign sign, MultipartFile file) throws Exception {  //등록할 수어를 db에 저장
+        if (file != null && !file.isEmpty() && !sign.getTitle().isEmpty() && !sign.getSign_desc().isEmpty()) {
 
             String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";  //파일 저장 경로
 
@@ -35,13 +37,11 @@ public class SignService {
             sign.setFilename(fileName);
             sign.setFilepath("/files/" + fileName);
             signRepository.save(sign);
-        } else {
-            signRepository.save(sign);
         }
 
     }
 
-    public void deleteFile(String filePath) {
+    public void deleteFile(String filePath) {   //현재 static 폴더에 저장된 파일을 삭제해주는 메소드
         File deleteFile = new File("src/main/resources/static/" + filePath);
 
         if(deleteFile.exists()) {   //파일이 존재하면 삭제
@@ -54,12 +54,12 @@ public class SignService {
 
 
     // 게시글 리스트 처리
-    public Page<Sign> signList(Pageable pageable){
+    public Page<Sign> signList(Pageable pageable){  //db에서 모든 수어 등록 글을 가져온다
 
         return signRepository.findAll(pageable);
     }
 
-    public Page<Sign> signSearchList(String searchKeyword, Pageable pageable) {
+    public Page<Sign> signSearchList(String searchKeyword, Pageable pageable) { //db에서 검색한 수어 글을 가져온다
 
         return signRepository.findByTitleContaining(searchKeyword, pageable);
     }
@@ -67,10 +67,10 @@ public class SignService {
     //특정 게시물 불러오기
     public Sign signDetail(Integer id){
         return signRepository.findById(id).get();
-    }
+    }   //디테일 페이지에 필요한 수어 정보를 가져온다.
 
     //특정 게시물 삭제
-    public void signDelete(Integer id) {
+    public void signDelete(Integer id) {    //db에서 수어 글을 삭제한다.
 
         deleteFile(signRepository.findById(id).get().getFilepath());
         signRepository.deleteById(id);

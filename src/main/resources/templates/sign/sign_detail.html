@@ -6,7 +6,7 @@
 </head>
 <body>
 <a sec:authorize="hasRole('ADMIN')" th:href="@{/sign/delete(id = ${sign.id})}">수어 삭제하기</a>
-<a sec:authorize="hasRole('ADMIN')" th:href="@{/sign/modify/{id}(id = ${sign.id})}">수어 수정하기</a>
+<a sec:authorize="hasRole('ADMIN')" th:href="@{/sign/update/{id}(id = ${sign.id})}">수어 수정하기</a>
 <h1 th:text ="${sign.title}"></h1>
 <p th:text ="${sign.sign_desc}"></p>
 <video muted autoplay loop>
