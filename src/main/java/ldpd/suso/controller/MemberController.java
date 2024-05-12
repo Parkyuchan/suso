@@ -50,7 +50,7 @@ public class MemberController {
 
         try {
 
-            Member existingMember = memberService.userFindUsername(memberCreateForm.getUsername());
+            /*Member existingMember = memberService.userFindUsername(memberCreateForm.getUsername());
             if (existingMember != null) {
                 bindingResult.reject("signupFailed", "이미 등록된 사용자 아이디입니다.");
                 return "member/signup_form";
@@ -66,19 +66,19 @@ public class MemberController {
             if (existingMember != null) {
                 bindingResult.reject("signupFailed", "이미 등록된 사용자 아이디입니다.");
                 return "member/signup_form";
-            }
+            }*/
             // 회원 가입 전 중복 검사
-//            Member existingMember = memberRepository.findByusername(memberCreateForm.getUsername());
-//            if (existingMember != null && existingMember.getUsername() != null) {
-//                bindingResult.reject("signupFailed", "이미 등록된 사용자 아이디입니다.");
-//                return "member/signup_form";
-//            }
-//
-//            existingMember = memberRepository.findByname(memberCreateForm.getName());
-//            if (existingMember != null && existingMember.getName() != null) {
-//                bindingResult.reject("signupFailed", "이미 등록된 사용자 이름입니다.");
-//                return "member/signup_form";
-//            }
+            Member existingMember = memberRepository.findByusername(memberCreateForm.getUsername());
+            if (existingMember != null && existingMember.getUsername() != null) {
+                bindingResult.reject("signupFailed", "이미 등록된 사용자 아이디입니다.");
+                return "member/signup_form";
+            }
+
+            existingMember = memberRepository.findByname(memberCreateForm.getName());
+            if (existingMember != null && existingMember.getName() != null) {
+                bindingResult.reject("signupFailed", "이미 등록된 사용자 이름입니다.");
+                return "member/signup_form";
+            }
 
             // 중복이 없을 경우 회원 가입 진행
             memberService.signup(memberCreateForm);
@@ -114,10 +114,10 @@ public class MemberController {
             // 사용자의 다른 정보에 접근 가능
         }
 
-        if (memberRepository != null) {
-            //Member optionalMember = memberRepository.findByusername(username);
-            Member optionalMember = memberService.userFindUsername(username);
-            if (optionalMember != null) {
+        if (memberService != null) {
+            Member optionalMember = memberRepository.findByusername(username);
+            //Member optionalMember = memberService.userFindUsername(username);
+            if (optionalMember != null && optionalMember.getUsername()!=null) {
                 Member member = optionalMember;
                 model.addAttribute("member", member);
             } else {
@@ -129,7 +129,7 @@ public class MemberController {
 
         model.addAttribute("searchUrl", "/home");
 
-        return "message";
+        return "member/my_page";
     }
 
     @GetMapping("/user/update/username")    //아이디 변경에 대한 Get 방식 프로토콜 메소드

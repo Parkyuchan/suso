@@ -79,15 +79,15 @@ public class MemberService {
     }
 
     public Member userFindUsername(String username){
-        return memberRepository.findById(memberRepository.findByusername(username).getMember_id()).get();
+        return memberRepository.findById((memberRepository.findByusername(username)).getMember_id()).get();
     }
 
 
     public Member userFindName(String name){
-        return memberRepository.findById(memberRepository.findByname(name).getMember_id()).get();
+        return memberRepository.findById((memberRepository.findByname(name)).getMember_id()).get();
     }
 
     public Member userFindEmail(String email){
-        return memberRepository.findById(memberRepository.findByEmail(email).getMember_id()).get();
+        return memberRepository.findById((memberRepository.findByEmail(email)).getMember_id()).get();
     }
 }
