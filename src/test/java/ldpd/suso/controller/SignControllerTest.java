@@ -1,5 +1,6 @@
 package ldpd.suso.controller;
 
+<<<<<<< HEAD
 import ldpd.suso.entity.Quiz;
 import ldpd.suso.entity.Sign;
 import ldpd.suso.service.QuizService;
@@ -127,4 +128,48 @@ class SignControllerTest {
         verify(model).addAttribute(eq("searchUrl"), eq("/sign/list"));
 
     }
+=======
+import ldpd.suso.entity.Sign;
+import ldpd.suso.service.SignService;
+import org.junit.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
+
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
+@RunWith(SpringRunner.class)    //JUnit에 내장된 실행자 외에 다른 실행자를 실행, 스프링 부터 테스트와 JUnit 사이에 연결자 역할
+@WebMvcTest(controllers = SignController.class) //Web에만 집중할 수 있는 어노테이션으로 Controller만 사용 가능
+public class SignControllerTest {
+
+    @Autowired
+    private SignService signService;
+    @InjectMocks
+    private SignController signController;
+
+    @Test
+    public void testregisterSign() throws Exception {
+        // 모의 객체 생성
+        Model model = Mockito.mock(Model.class);
+        MultipartFile file = Mockito.mock(MultipartFile.class);
+        Sign sign = new Sign(); // 필요하다면 sign 역시 목 객체로 만들 수 있음
+
+        // 테스트 수행
+        when(file.getSize()).thenReturn((long) (50 * 1024 * 1024)); // 파일 사이즈 설정
+        signController.registerSign(sign, model, file);
+
+        // 모델에 메시지가 올바르게 추가되었는지 검증
+        verify(model).addAttribute("message", "수어 사전 등록이 완료됐습니다.");
+    }
+
+>>>>>>> 25d43dd (05.13 깃 풀을 위한 커밋)
 }
