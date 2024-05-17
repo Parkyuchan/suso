@@ -23,6 +23,8 @@ public class SignService {
 
     public void registerSign(Sign sign, MultipartFile file) throws Exception {  //등록할 수어를 db에 저장
         if (file != null && !file.isEmpty() && !sign.getTitle().isEmpty() && !sign.getSign_desc().isEmpty()) {
+            if(sign.getFilepath() != null)
+                deleteFile(signRepository.findById(sign.getId()).get().getFilepath());
 
             String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";  //파일 저장 경로
 

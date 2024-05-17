@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mypage</title>
+</head>
 <body>
-
 <div class="col-lg-4">
     <div class="fa-user">내 프로필</div>
     <div class="form-group">
@@ -26,3 +29,80 @@
 </div>
 </body>
 </html>
+<style>
+    @font-face {
+    font-family: 'BMJUA';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    }
+
+    body {
+    font-family: 'BMJUA', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    }
+
+    .col-lg-4 {
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 20px;
+    text-align: center;
+    }
+
+    .fa-user {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    }
+
+    .form-group {
+    text-align: left;
+    margin-bottom: 20px;
+    }
+
+    .form-group label {
+    display: block;
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 5px;
+    }
+
+    .form-group p {
+    font-size: 16px;
+    margin: 0 0 10px 0;
+    color: #333;
+    }
+
+    .form-group a {
+    display: block;
+    font-size: 14px;
+    color: #81D4FA;
+    text-decoration: none;
+    margin-top: 5px;
+    }
+
+    .form-group a:hover {
+    text-decoration: underline;
+    }
+
+    a {
+    display: block;
+    font-size: 14px;
+    color: #81D4FA;
+    text-decoration: none;
+    margin-top: 20px;
+    }
+
+    a:hover {
+    text-decoration: underline;
+    }
+
+</style>

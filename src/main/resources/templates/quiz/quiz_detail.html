@@ -11,20 +11,15 @@
   <source th:src="@{${quiz.sign.filepath}}" type="video/mp4">
 </video>
 
-<h2>선택지 중 하나를 선택하세요:</h2>
-<form>
-  <input type="radio" id="choice1" name="choice" value="choice1">
-  <label for="choice1">선택지 1</label><br>
-
-  <input type="radio" id="choice2" name="choice" value="choice2">
-  <label for="choice2">선택지 2</label><br>
-
-  <input type="radio" id="choice3" name="choice" value="choice3">
-  <label for="choice3">선택지 3</label><br>
-
-  <input type="radio" id="choice4" name="choice" value="choice4">
-  <label for="choice4">선택지 4</label><br><br>
-
+<h2>선택지 중 하나를 선택하세요</h2>
+<form action="/quiz/submit" method="post">
+  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+  <input type="hidden" name="quiz_id" th:value="${quiz.quiz_id}">
+  <th:block th:each="choice : ${choices}">
+    <input type="radio" th:id="'choice' + ${choice.id}" name="choiceId" th:value="${choice.id}">
+    <label th:for="'choice' + ${choice.id}" th:text="${choice.title}"></label>
+    <br>
+  </th:block>
   <input type="submit" value="선택 완료">
 </form>
 
