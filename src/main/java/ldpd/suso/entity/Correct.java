@@ -1,41 +1,27 @@
 package ldpd.suso.entity;
 
-import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
-import java.sql.Timestamp;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Data;
 
 @Entity
 @Data
-@NoArgsConstructor
 public class Correct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer cor_id;
+    private Integer id;
 
-    private boolean cor;    //맞혔는지 여부
+    private String originalWords;
 
-    @ManyToOne
-    @JoinColumn(name = "quiz_id")
-    private Quiz quiz;
+    private String translatedSentence;
 
-    //private Integer quiz_id;
-
-    @ManyToOne  //사용자 한명이 답 여러개 가능
-    @JoinColumn(name = "member_id")
-    private Member member;
-
-    private String mem_ans;
-
-    @CreationTimestamp
-    private Timestamp createdAt;
-
-    public Correct(Quiz quiz, Member member){
-        this.quiz = quiz;
-        this.member = member;
+    public Correct(String originalWords, String translatedSentence){
+        this.originalWords = originalWords;
+        this.translatedSentence = translatedSentence;
     }
 
 }

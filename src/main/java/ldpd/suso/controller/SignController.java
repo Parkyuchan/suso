@@ -1,22 +1,24 @@
 package ldpd.suso.controller;
 
+import ldpd.suso.entity.Correct;
 import ldpd.suso.entity.Quiz;
 import ldpd.suso.entity.Sign;
 import ldpd.suso.service.QuizService;
 import ldpd.suso.service.SignService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.*;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
-
 
 
 @RequiredArgsConstructor
@@ -25,6 +27,7 @@ public class SignController {
 
     private final SignService signService;
     private final QuizService quizService;
+
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")  //ADMIN권한을 가진 사용자만 메소드 접근 가능
     @GetMapping("/admin/sign")  //수어 등록에 대한 Get 방식 프로토콜 메소드
@@ -38,7 +41,7 @@ public class SignController {
 
         final long MAX_VIDEO_LENGTH = 100 * 1024 * 1024;
 
-        if (file.getSize() >= MAX_VIDEO_LENGTH) {
+        if (file.getSize() > MAX_VIDEO_LENGTH) {
             model.addAttribute("message", "업로드된 영상의 길이가 너무 깁니다.");
             model.addAttribute("searchUrl", "/admin/sign");
             return "message";
