@@ -87,7 +87,7 @@ public class MemberController {
             bindingResult.reject("signupFailed", "회원 가입에 실패하였습니다.");
             return "member/signup_form";
         }
-        return "main";
+        return "redirect:/home";
     }
 
     @GetMapping("/login")   //로그인에 대한 Get 방식 프로토콜 메소드, post 방식 로그인은 SecurityConfig에서 대신 수행한다.

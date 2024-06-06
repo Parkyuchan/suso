@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>퀴즈 결과 확인</title>
+</head>
+<body>
+
+<h1>퀴즈 결과 확인</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>퀴즈 번호</th>
+        <th>결과</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="result : ${results}">
+        <td th:text="${result.quiz.quiz_id}"></td>
+        <td th:text="${result.correct ? '정답' : '오답'}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

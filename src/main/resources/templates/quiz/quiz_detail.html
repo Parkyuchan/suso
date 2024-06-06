@@ -2,28 +2,311 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
   <title>퀴즈</title>
 </head>
 <body>
-<h1 th:text ="${quiz.quiz_id}"></h1>
-<p th:text ="${quiz.sign.sign_desc}"></p>
-<video muted autoplay loop>
-  <source th:src="@{${quiz.sign.filepath}}" type="video/mp4">
-</video>
+<div class="layout">
+  <div class="header">
+    <div class="fixed-title"><p>수</p>어 <p>퀴</p>즈</div>
+  </div>
 
-<h2>선택지 중 하나를 선택하세요</h2>
-<form action="/quiz/submit" method="post">
-  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-  <input type="hidden" name="quiz_id" th:value="${quiz.quiz_id}">
-  <th:block th:each="choice : ${choices}">
-    <input type="radio" th:id="'choice' + ${choice.id}" name="choiceId" th:value="${choice.id}">
-    <label th:for="'choice' + ${choice.id}" th:text="${choice.title}"></label>
-    <br>
-  </th:block>
-  <input type="submit" value="선택 완료">
-</form>
+  <div class="quiz">
+    <a class="back-button" th:href="@{/quiz/list}"><</a>
+    <h1 th:text="${quiz.quiz_id} + '번 문제'"></h1>
 
-</hr>
+    <div class="problem">
+      <video class="video-size" muted autoplay loop>
+        <source th:src="@{${quiz.sign.filepath}}" type="video/mp4">
+      </video>
+
+      <h2 th:text="'Q'+${quiz.quiz_id}+'. 수어 영상을 보고 알맞은 표제어 하나를 선택하세요.'"></h2>
+      <form action="/quiz/submit" method="post" th:csrf>
+        <input type="hidden" name="quiz_id" th:value="${quiz.quiz_id}">
+        <th:block th:each="choice : ${choices}">
+          <input type="radio" th:id="'choice' + ${choice.id}" name="choiceId" th:value="${choice.id}">
+          <label th:for="'choice' + ${choice.id}" th:text="${choice.title}"></label>
+          <br>
+        </th:block>
+        <input type="submit" value="선택 완료">
+      </form>
+      <form>
+        <label class="choice" id="label1">
+          <input type="radio" id="choice1" name="choice" value="choice1" hidden>
+          선택지 1
+        </label><br>
+
+        <label class="choice" id="label2">
+          <input type="radio" id="choice2" name="choice" value="choice2" hidden>
+          선택지 2
+        </label><br>
+
+        <label class="choice" id="label3">
+          <input type="radio" id="choice3" name="choice" value="choice3" hidden>
+          선택지 3
+        </label><br>
+
+        <label class="choice" id="label4">
+          <input type="radio" id="choice4" name="choice" value="choice4" hidden>
+          선택지 4
+        </label><br><br>
+
+        <input type="submit" value="선택 완료">
+      </form>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+<div class="navbar">
+  <a th:href="@{/logout}" class="footer-link">
+    <i class="fas fa-sign-out-alt"></i><span>Log Out</span>
+  </a>
+  <a href="#">
+    <i class="fas fa-search"></i>
+    <span>Search</span>
+  </a>
+  <a th:href="@{/home}" class="footer-link">
+    <i class="fas fa-home"></i><span>Home</span>
+  </a>
+  <a href="#">
+    <i class="fas fa-bookmark"></i>
+    <span>Saved List</span>
+  </a>
+  <a th:href="@{/user/mypage}" class="footer-link">
+    <i class="fas fa-user"></i><span>My Page</span>
+  </a>
+</div>
 
 </body>
+<style>
+  @font-face {
+        font-family: 'BMJUA';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'HakgyoansimBareondotumB';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimBareondotumB.woff2') format('woff2');
+        font-weight: 700;
+        font-style: normal;
+    }
+
+     html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: white; /* 배경색을 회색으로 설정 */
+  }
+
+     body {
+        font-family: 'BMJUA', sans-serif;
+        background-position: center;
+        background-color: #EEEEEE;
+        background-repeat: no-repeat;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        margin: 0;
+    }
+
+
+<!--  헤더-->
+    .header {
+        font-family: 'BMJUA', sans-serif;
+      color: black;
+      text-align: center;
+      padding: 2% 0;
+      font-size: 60px;
+      width: 100%;
+    }
+
+    .fixed-title{
+      font-family: 'BMJUA', sans-serif;
+        color: black;
+        text-align: center;
+        padding: 5% 0;
+        font-size: 60px;
+    }
+
+
+    .header p {
+        display: inline;
+        font-size: 60px;
+        color: #81D4FA;
+    }
+
+
+
+     .navbar {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background-color: #f8f8f8;
+      padding: 20px 0;
+      border-top: 1px solid #ddd;
+      width: 100%;
+      border-radius: 10px;
+      position: fixed; /* 고정 위치 */
+      bottom: 0; /* 하단 */
+      left: 0; /* 왼쪽 경계 */
+      right: 0; /* 오른쪽 경계 */
+      z-index: 1000; /* 다른 요소들 위에 나타나도록 z-index 설정 */
+    }
+
+    .quiz h1 {
+      display: inline-block;
+      padding: 10px 20px;
+      width:30%;
+      background-color: #fff;
+      font-size:40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
+    }
+  .back-button {
+   background-color: #fff;
+  padding: 10px 20px; /* 패딩 */
+  font-size: 35px; /* 폰트 크기 */
+  border-radius: 10px; /* 둥근 모서리 */
+  border: 1px solid #ccc; /* 테두리 */
+  cursor: pointer; /* 커서 모양 변경 */
+  margin-right:2%;
+}
+
+.back-button:hover {
+  background-color: #e0e0e0; /* 호버 시 배경색 변경 */
+}
+
+    .quiz {
+      text-align: center;
+    }
+
+
+
+    .quiz h2 {
+        font-family: 'HakgyoansimBareondotumB', sans-serif;
+
+      margin-left: 10px; /* 레이블과 라디오 버튼 사이 여백 설정 */
+  font-size: 35px; /* h2 폰트 크기 설정 */
+  margin-top: 20px; /* 위쪽 여백 설정 */
+}
+
+.quiz form {
+  text-align: left; /* 폼 전체를 왼쪽 정렬 */
+  display: inline-block; /* 중앙 정렬을 유지하기 위해 폼을 인라인 블록으로 설정 */
+  width: 80%; /* 폼의 너비를 조정 */
+
+}
+
+
+.quiz form label {
+  font-size: 30px; /* 선택지 폰트 크기 설정 */
+}
+
+
+.quiz form input[type="submit"] {
+  background-color: #81D4FA; /* 배경색 설정 */
+  color: white; /* 폰트 색상 하얀색으로 설정 */
+  font-size: 30px; /* 제출 버튼 폰트 크기 설정 */
+  padding: 20px 20px; /* 제출 버튼 여백 설정 */
+  border: none; /* 실선 없애기 */
+  border-radius: 20px; /* 둥글게 설정 */
+  font-weight: bold; /* 폰트 굵기 올리기 */
+  cursor: pointer; /* 마우스 포인터를 손가락 모양으로 변경 */
+  display: block; /* 블록 요소로 변경 */
+  margin-left: auto; /* 오른쪽 정렬 */
+          font-family: 'HakgyoansimBareondotumB', sans-serif;  /* 전체 페이지에 적용 */
+
+}
+
+
+
+
+    .problem{
+      width:100%;
+      height:auto;
+      background-color:white;
+      margin: 0 auto;
+      padding-top:5%;
+     padding-bottom:5%;
+      }
+
+.choice {
+  display: block;
+  width: 100%;
+  padding: 25px;
+  margin-bottom: 10px;
+  background-color: #FFFFFF;
+  border: 2px solid #CCCCCC;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 40px;
+}
+
+.choice.selected {
+  border-color: #81D4FA; /* 선택된 선택지의 테두리 색상 변경 */
+  background-color: #81D4FA; /* 선택된 선택지의 배경 색상 변경 */
+  color: white; /* 선택된 선택지의 글자 색상 변경 */
+}
+
+
+.choice:hover, .choice:focus-within {
+  background-color: #81D4FA;
+  border-color: #81D4FA;
+  color: white;
+}
+
+
+
+     .video-size {
+      width: 90%; /* 너비를 80%로 설정 */
+      display: block;
+      margin: 0 auto; /* 중앙 정렬 */
+      margin-bottom:5%;
+    }
+
+
+    .navbar a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #333;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .navbar a i {
+      font-size: 40px;
+      margin-bottom: 20%;
+    }
+    .navbar a span {
+      display: block;
+      font-size: 30px;
+    }
+    .navbar a:hover {
+      color: #007bff;
+    }
+
+
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const choices = document.querySelectorAll('.choice');
+    choices.forEach(choice => {
+      choice.addEventListener('click', function() {
+        choices.forEach(c => c.classList.remove('selected')); // 모든 선택지에서 'selected' 클래스 제거
+        this.classList.add('selected'); // 클릭된 선택지에만 'selected' 클래스 추가
+      });
+    });
+  });
+</script>
+
 </html>

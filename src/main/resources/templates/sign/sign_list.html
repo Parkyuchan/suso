@@ -1,58 +1,327 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <title>수어 사전 리스트</title>
-</head>
-<style>
-  .layout {
-      width : 500px;
-      margin : 0 auto;
-      margin-top : 40px;
+  <style>
+    @font-face {
+        font-family: 'BMJUA';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+
+
+    @font-face {
+        font-family: 'HakgyoansimBareondotumB';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimBareondotumB.woff2') format('woff2');
+        font-weight: 700;
+        font-style: normal;
+    }
+
+    html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: white; /* 배경색을 회색으로 설정 */
   }
-</style>
+
+     body {
+        font-family: 'BMJUA', sans-serif;
+
+    background-image: url('/image/main.png'); /* Add this line */
+    background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        margin: 0;
+    }
+
+    .main {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+        text-align: center;
+        background: white;
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+        padding-top: 100px; /* Add top padding to push the content below the fixed header */
+    }
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 모든 자식 요소를 가운데 정렬 */
+    width: 100%; /* 부모 컨테이너의 너비를 최대로 설정 */
+}
+
+    .fixed-title{
+      font-family: 'BMJUA', sans-serif;
+        color: black;
+        text-align: center;
+        padding: 5% 0;
+        font-size: 60px;
+    }
+
+   .header {
+      position: fixed;  /* Keep the header at a fixed position */
+      top: 0;           /* Align the header at the top of the viewport */
+      left: 0;          /* Align the header to the left of the viewport */
+      right: 0;         /* Align the header to the right of the viewport */
+      width: 90%;       /* Ensure the header spans the full width of the viewport */
+      margin: auto;     /* Automatically adjust the margin to center the header */
+      z-index: 1000;    /* Higher index to keep the header above other content */
+  }
+
+    .header p {
+        display: inline;
+        font-size: 60px;
+        color: #81D4FA;
+    }
+
+    .search-section {
+        font-family: 'HakgyoansimBareondotumB', sans-serif;  /* 전체 페이지에 적용 */
+        background-color: none;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .search-section input[type="text"] {
+    flex-grow: 1;
+    border: 2px solid #00BFFF;
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 30px;
+    font-family: 'HakgyoansimBareondotumB', sans-serif; /* 폰트 변경 */
+}
+
+    .video-item .video-info p {
+        font-size: 30px;
+        color: lightgray; /* 텍스트 색상 변경 */
+    }
+
+    .search-section {
+        background-color: none;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
+    .search-section input[type="text"] {
+        flex-grow: 1;
+        border: 2px solid #00BFFF;
+        padding: 20px;
+        border-radius: 20px;
+        font-family: 'HakgyoansimBareondotumB', sans-serif;
+        font-size: 30px;
+    }
+
+    .search-section button {
+        background-color: #00BFFF;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        font-family: 'HakgyoansimBareondotumB', sans-serif;
+        padding: 20px 20px;
+        font-size: 30px;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+
+    .video-item {
+    width: 90%;
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* 이미지, 비디오 정보, 버튼 */
+    grid-template-rows: auto auto; /* 두 줄 구성 */
+    align-items: center;
+    border-radius: 35px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4); /* 그림자 추가 */
+    background-color: white;
+    padding: 15px;
+    margin: 0 auto; /* 상하 마진을 10%로, 좌우 마진을 auto로 설정하여 가운데 정렬 */
+    margin-bottom:5%;
+}
+
+
+
+.video-item img {
+  grid-row: 1 / 3; /* 이미지는 두 행을 차지 */
+  width: 250px; /* 이미지 크기 수정 */
+  border-radius: 5px;
+}
+
+.video-item .video-info {
+  grid-column: 2; /* 비디오 정보는 두 번째 열 */
+}
+.video-item .video-info h3 {
+  margin: 5%;
+  font-size: 40px; /* 제목 폰트 크기 */
+}
+
+.video-item .video-info p {
+  margin: 5%;
+  font-size: 30px; /* 설명 폰트 크기 */
+}
+
+.video-item .view-details {
+  grid-column: 3; /* 버튼은 세 번째 열 */
+  grid-row: 2; /* 버튼은 두 번째 행 */
+      font-family: 'HakgyoansimBareondotumB', sans-serif;  /* 전체 페이지에 적용 */
+      padding:15px;
+      font-size:30px;
+      border: none;
+      background-color: #81D4FA;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+          margin-right: 10px;
+}
+
+.pagination a, .pagination strong {
+  margin: 10px; /* 기존 마진 보다 크게 조정 */
+  padding: 10px 15px; /* 좀 더 넓은 패딩 제공 */
+  border: 5px solid #ddd; /* 테두리는 그대로 유지 */
+  font-size: 30px; /* 더 큰 폰트 크기 */
+  color: #333;
+  text-decoration: none; /* 밑줄 없애기 */
+  border-radius: 5px; /* 버튼 모서리 둥글게 */
+}
+
+.pagination a:hover {
+  background-color: #f8f8f8; /* 호버 시 배경색 변경 */
+  color: #000; /* 호버 시 글자 색상 변경 */
+}
+
+.pagination strong {
+  color: #00BFFF; /* 현재 페이지 번호 색상 */
+  border-color: #00BFFF; /* 현재 페이지 번호 테두리 색상 */
+}
+
+
+    .navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f8f8f8;
+  padding: 20px 0;
+  border-top: 1px solid #ddd;
+  width: 100%;
+  border-radius: 10px;
+  position: fixed; /* 고정 위치 */
+  bottom: 0; /* 하단 */
+  left: 0; /* 왼쪽 경계 */
+  right: 0; /* 오른쪽 경계 */
+  z-index: 1000; /* 다른 요소들 위에 나타나도록 z-index 설정 */
+}
+
+    .navbar a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #333;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .navbar a i {
+      font-size: 40px;
+      margin-bottom: 20%;
+    }
+    .navbar a span {
+      display: block;
+      font-size: 30px;
+    }
+    .navbar a:hover {
+      color: #007bff;
+    }
+
+    .admin-sign-button {
+  background-color: #00BFFF; /* 파란색 배경 */
+  color: white; /* 흰색 텍스트 */
+  border: none; /* 테두리 없음 */
+  border-radius: 20px; /* 모서리 둥글게 */
+  padding: 15px 30px; /* 상하 15px, 좌우 30px 패딩 */
+  font-size: 20px; /* 폰트 크기 */
+  cursor: pointer; /* 커서 모양 변경 */
+  font-family: 'HakgyoansimBareondotumB', sans-serif; /* 폰트 설정 */
+  transition: background-color 0.3s; /* 배경색 변경 애니메이션 */
+}
+
+.admin-sign-button:hover {
+  background-color: #0094CC; /* 호버 시 배경색 변경 */
+}
+
+  </style>
+</head>
 <body>
-
-<a sec:authorize="hasRole('ADMIN')" href="/admin/sign">수어 사전 등록</a>
-
-<!-- 로그아웃 상태인 경우: 로그인과 회원가입 링크만 보이게 함 -->
-<a sec:authorize="isAnonymous()"  th:href="@{/login}">로그인</a>
-<a sec:authorize="isAnonymous()" th:href="@{/signup}">회원가입</a>
-
-<!-- 로그인 상태인 경우: 로그아웃 링크만 보이게 함 -->
-<a sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>
-
 <div class="layout">
-  <table>
-    <thead>
-    <tr>
-      <th>글번호</th>
-      <th>수어</th>
-    </tr>
-    </thead>
-    <tbody>
+  <div class="header">
+    <div class="fixed-title"><p>한</p>수 <p>사</p>전</div>
 
-    <tr th:each="sign, rowStat : ${list}">
+    <!-- Search Section -->
+    <div class="search-section">
+      <form th:action="@{/sign/list}" method="get">
+        <input type="text" name="searchKeyword">
+        <button type="submit">수어 검색</button>
+      </form>
+    </div>
+  </div>
 
-      <td th:text="${rowStat.index + 1}"></td>
-      <td>
-        <a th:text="${sign.title}" th:href="@{/sign/{id}(id = ${sign.id})}"></a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
 
-  <br>
-  <th:block th:if="${page != 0 }" th:each="page : ${#numbers.sequence(startPage, endPage)}">
-    <a th:if="${page != nowPage}" th:href="@{/sign/list(page = ${page -1}, searchKeyword = ${param.searchKeyword})}"
-       th:text="${page}"></a>
-    <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
-  </th:block>
-  <form th:action="@{/sign/list}" method="get">
-    <input type="text" name="searchKeyword">
-    <button type="submit">수어 검색</button>
-  </form>
+  <div th:each="sign : ${list}" class="video-item">
+    <img src="https://via.placeholder.com/80" alt="Video Thumbnail">
+    <div class="video-info">
+      <h3 class="title" th:text="${sign.title}"></h3>
+      <p class="description">서버에서 데이터 가져오기</p>
+    </div>
+    <a th:href="@{/sign/{id}(id=${sign.id})}" class="view-details">수어 풀이 보기</a>
+  </div>
+
+  <div class="pagination">
+    <th:block th:if="${page != 0 }" th:each="page : ${#numbers.sequence(startPage, endPage)}">
+      <!-- 현재 페이지가 아닌 경우 링크를 표시 -->
+      <a th:if="${page != nowPage}" th:href="@{/sign/list(page=${page - 1}, searchKeyword=${param.searchKeyword})}" th:text="${page}"></a>
+      <!-- 현재 페이지인 경우 강조 표시 -->
+      <strong th:if="${page == nowPage}" th:text="${page}" style="color: black;"></strong>
+    </th:block>
+  </div>
+
+  <div class="post">
+    <button sec:authorize="hasRole('ADMIN')" onclick="location.href='/admin/sign'" class="admin-sign-button">수어 사전 등록</button>
+  </div>
+
+  <div class="navbar">
+    <a th:href="@{/logout}" class="footer-link">
+      <i class="fas fa-sign-out-alt"></i><span>Log Out</span>
+    </a>
+    <a href="#">
+      <i class="fas fa-search"></i>
+      <span>Search</span>
+    </a>
+    <a th:href="@{/home}" class="footer-link">
+      <i class="fas fa-home"></i><span>Home</span>
+    </a>
+    <a th:href="@{/user/mypage}" class="footer-link">
+      <i class="fas fa-user"></i><span>My Page</span>
+    </a>
+  </div>
 </div>
-
 </body>
+<script>
+  document.querySelector('.admin-sign-button').addEventListener('click', function() {
+    window.location.href = '/admin/sign';
+  });
+</script>
+
 </html>

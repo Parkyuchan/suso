@@ -1,35 +1,134 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
-<div class="container my-3">
-    <div class="my-3 border-bottom">
-        <div>
-            <h4>회원가입</h4>
-        </div>
-    </div>
-    <form th:action="@{/signup}" th:object="${memberCreateForm}" method="post">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="/suso/src/css/signupstyle.css">
+</head><body>
+<div class="signup-container">
+    <h4 class="title">회원가입</h4>
+    <form th:action="@{/signup}" th:object="${memberCreateForm}" method="post" class="signup-form">
         <div th:replace="~{member/form_errors :: formErrorsFragment}"></div>
-        <div class="mb-3">
-            <label for="username" class="form-label">사용자ID</label>
-            <input type="text" id="username" th:field="*{username}" class="form-control">
+        <div class="form-group">
+            <label for="username">아이디</label>
+            <input type="text" id="username" th:field="*{username}">
         </div>
-        <div class="mb-3">
-            <label for="password1" class="form-label">비밀번호</label>
-            <input type="password" id="password1" th:field="*{password1}" class="form-control">
+        <div class="form-group">
+            <label for="password1">비밀번호</label>
+            <input type="password" id="password1" th:field="*{password1}">
         </div>
-        <div class="mb-3">
-            <label for="password2" class="form-label">비밀번호 확인</label>
-            <input type="password" id="password2" th:field="*{password2}" class="form-control">
+        <div class="form-group">
+            <label for="password2">비밀번호 확인</label>
+            <input type="password" id="password2" th:field="*{password2}">
         </div>
-        <div class="mb-3">
-            <label for="name" class="form-label">이름</label>
-            <input type="text" id="name" th:field="*{name}" class="form-control">
+        <div class="form-group">
+            <label for="name">이름</label>
+            <input type="text" id="name" th:field="*{name}">
         </div>
-        <div class="mb-3">
+        <div class="form-group">
             <label for="email" class="form-label">이메일</label>
             <input type="email" id="email" th:field="*{email}" class="form-control">
         </div>
-
-        <button type="submit" class="btn btn-primary">회원가입</button>
+        <div class="submitcontainer">
+            <button type="submit" class="btn btn-primary">회원가입</button>
+        </div>
     </form>
 </div>
+</body>
 </html>
+<style>
+    @font-face {
+        font-family: 'BMJUA';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+
+
+    @font-face {
+        font-family: 'HakgyoansimBareondotumB';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimBareondotumB.woff2') format('woff2');
+        font-weight: 700;
+        font-style: normal;
+    }
+
+    html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: white; /* 배경색을 회색으로 설정 */
+  }
+
+     body {
+        font-family: 'HakgyoansimBareondotumB', sans-serif;  /* 전체 페이지에 적용 */
+        background-position: center;
+        background-repeat: no-repeat;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        margin: 0;
+    }
+    .signup-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* 모든 자식 요소를 가운데 정렬 */
+        width: 100%; /* 부모 컨테이너의 너비를 최대로 설정 */
+}
+
+
+.title {
+    font-size: 60px; /* 폰트 크기 조정 */
+        font-family: 'BMJUA', sans-serif;
+    margin-bottom: 10px; /* 여백 조정 */
+    text-align: center;
+    padding-bottom: 5%;
+}
+
+
+.form-group {
+    width: 100%; /* 폼 그룹의 너비를 100%로 설정 */
+    }
+
+label {
+    display: block;
+    font-size: 40px; /* 폰트 크기 조정 */
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] { /* 이메일 입력 필드에도 같은 스타일 적용 */
+    width: 100%; /* 입력 필드의 너비를 90%로 조정 */
+    margin: auto; /* 자동 마진으로 중앙 정렬 */
+    padding: 30px; /* 패딩 조정 - 상하 패딩을 조금 줄여 더 정확한 높이 조정 가능 */
+    height: 20px; /* 입력 필드의 높이를 40픽셀로 설정 */
+    border: 1px solid #ccc;
+    border-radius: 5px; /* 입력 필드 모서리 둥글게 */
+        margin-bottom: 15%; /* 라벨과 입력 필드 간의 여백 조정 */
+
+    font-size: 40px; /* 입력 필드 폰트 크기 조정 */
+
+}
+
+.submit-button,
+button[type="submit"] {
+    font-family: 'HakgyoansimBareondotumB', sans-serif;  /* 전체 페이지에 적용 */
+    width: 100%; /* 버튼의 너비를 100%로 설정 */
+    padding: 20px; /* 패딩 조정 */
+    background-color: #81D4FA; /* 배경 색상 */
+    color: white; /* 텍스트 색상 */
+    font-size: 35px; /* 폰트 크기 조정 */
+    border: none;
+    border-radius: 5px; /* 버튼 모서리 둥글게 */
+    cursor: pointer;
+    margin-top: 10%; /* 버튼 상단 여백 추가 */
+    margin:0 atuo;
+}
+
+
+button[type="button"] {
+    font-family: 'HakgyoansimBareondotumB', sans-serif;  /* 전체 페이지에 적용 */
+    background-color: #6c757d; /* '뒤로 가기' 버튼 색상 */
+}
+
+</style>

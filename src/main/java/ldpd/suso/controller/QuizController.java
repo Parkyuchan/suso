@@ -5,10 +5,13 @@ import ldpd.suso.entity.Quiz;
 import ldpd.suso.entity.Result;
 import ldpd.suso.entity.Sign;
 import ldpd.suso.repository.MemberRepository;
+import ldpd.suso.repository.QuizRepository;
 import ldpd.suso.repository.SignRepository;
 import ldpd.suso.service.QuizService;
 import ldpd.suso.service.ResultService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,11 +27,11 @@ import java.util.List;
 public class QuizController {
 
     private final QuizService quizService;
-    private final MemberRepository memberRepository;
     private final SignRepository signRepository;
+    private final MemberRepository memberRepository;
     private final ResultService resultService;
 
-    @GetMapping("/quiz/list")   //퀴즈 글 리스트에 대한 Get 방식 프로토콜 메소드
+    @GetMapping("/quiz/list")
     public String quizList(Model model) {
 
         List<Quiz> quiz = null;
@@ -38,13 +41,13 @@ public class QuizController {
         return "quiz/quiz_list";
     }
 
-    @GetMapping("/quiz/{id}")   //퀴즈 상세 페이지에 대한 Post 방식 프로토콜 메소드
-    public String quizDetail(@PathVariable("id") Integer id, Model model){
+    @GetMapping("/quiz/{id}")
+    public String quizDetail(@PathVariable("id") Integer id, Model model) {
 
         model.addAttribute("quiz", quizService.quizDetail(id));
         model.addAttribute("choices", quizService.getRandomChoices(id));
-        return "quiz/quiz_detail";
 
+        return "quiz/quiz_detail";
     }
 
     @PostMapping("/quiz/submit")

@@ -2,18 +2,269 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
-  <title>수어 사전</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <title>한수 사전</title>
+  <style>
+    @font-face {
+       font-family: 'BMJUA';
+       src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+       font-weight: normal;
+       font-style: normal;
+   }
+
+   @font-face {
+        font-family: 'HakgyoansimBareondotumB';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimBareondotumB.woff2') format('woff2');
+        font-weight: 700;
+        font-style: normal;
+    }
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #EEEEEE; /* 배경색을 회색으로 설정 */
+    }
+
+    body {
+        font-family: 'HakgyoansimBareondotumB';
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        margin: 0;
+    }
+
+    .layout {
+      width: 100%;
+      max-width: 100%;
+    }
+    .header {
+    color: black;
+    font-size: 70px;
+    display: flex;
+    justify-content: center; /* 내용을 가운데 정렬 */
+    width: 100%; /* 전체 너비를 사용 */
+   font-family: 'BMJUA', sans-serif;
+
+}
+
+ .header {
+    position: fixed;  /* Keep the header at a fixed position */
+    top: 5%;           /* Align the header at the top of the viewport */
+    left: 0;          /* Align the header to the left of the viewport */
+    right: 0;         /* Align the header to the right of the viewport */
+    width: 90%;       /* Ensure the header spans the full width of the viewport */
+    margin: auto;     /* Automatically adjust the margin to center the header */
+    z-index: 1000;    /* Higher index to keep the header above other content */
+}
+
+
+    .header p {
+        font-size: 70px;
+        color: #81D4FA;
+        margin: 0 5px;
+    }
+
+      .title {
+        font-size: 60px;
+        padding-left:5%;
+        text-align: left; /* 텍스트를 왼쪽 정렬 */
+        width: 100%; /* 전체 너비를 사용 */
+    }
+
+    .title-highlight {
+    background-color: #81D4FA; /* 하늘색 배경색 설정 */
+    border-radius: 5px; /* 둥근 모서리 효과 추가 (선택사항) */
+    }
+
+
+    .video-container {
+    display: flex;
+    justify-content: center; /* 가로 방향으로 중앙 정렬 */
+    align-items: center; /* 세로 방향으로 중앙 정렬 */
+    width: 100%; /* 컨테이너 너비를 최대로 설정 */
+    padding: 0; /* 패딩 초기화 */
+    margin: 20px auto; /* 상단과 하단 여백 추가, 자동으로 좌우 마진 적용 */
+    box-sizing: border-box; /* 박스 사이징 조정 */
+}
+
+video {
+    width: 80%; /* 비디오의 너비 설정 */
+    height: auto; /* 높이 자동 조절 */
+    margin: 0 auto; /* 비디오 마진 자동으로 좌우 적용 */
+}
+
+
+
+      .info {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-top: 20px;
+      padding: 20px;
+    }
+
+    .info-section {
+      width: 90%;
+      background-color: #fff;
+      padding:1% 5% 1% 5%;
+      margin-bottom: 5%;
+    }
+
+    .info-section:last-child {
+      margin-bottom: 0; /* 마지막 섹션의 하단 간격을 제거 */
+    }
+
+    .info-title {
+      font-size: 50px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .info-content{
+          font-size: 40px;
+}
+
+    hr{
+        background-color: #grey;
+    }
+
+
+    .content-container {
+  display: flex;
+  align-items: center; /* 센터 정렬 */
+}
+
+.info-image {
+  width: 20%;
+  height:20%;
+  background-color:red;
+  margin-right: 20px; /* 텍스트와의 간격 */
+}
+
+.text-container {
+  flex-grow: 1; /* 남은 공간 모두 사용 */
+}
+
+
+
+    .navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f8f8f8;
+  padding: 20px 0;
+  border-top: 1px solid #ddd;
+  width: 100%;
+  border-radius: 10px;
+  position: fixed; /* 고정 위치 */
+  bottom: 0; /* 하단 */
+  left: 0; /* 왼쪽 경계 */
+  right: 0; /* 오른쪽 경계 */
+  z-index: 1000; /* 다른 요소들 위에 나타나도록 z-index 설정 */
+}
+
+    .navbar a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #333;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .navbar a i {
+      font-size: 40px;
+      margin-bottom: 20%;
+    }
+    .navbar a span {
+      display: block;
+      font-size: 30px;
+    }
+    .navbar a:hover {
+      color: #007bff;
+    }
+
+
+
+  </style>
 </head>
 <body>
-<a sec:authorize="hasRole('ADMIN')" th:href="@{/sign/delete(id = ${sign.id})}">수어 삭제하기</a>
-<a sec:authorize="hasRole('ADMIN')" th:href="@{/sign/update/{id}(id = ${sign.id})}">수어 수정하기</a>
-<h1 th:text ="${sign.title}"></h1>
-<p th:text ="${sign.sign_desc}"></p>
-<video muted autoplay loop>
-  <source th:src="@{${sign.filepath}}" type="video/mp4">
-</video>
+<!--관리자면 표시됨-->
+<!--<a sec:authorize="hasRole('ADMIN')" th:href="@{/sign/delete(id = ${sign.id})}">수어 삭제하기</a>-->
+<!--<a sec:authorize="hasRole('ADMIN')" th:href="@{/sign/update/{id}(id = ${sign.id})}">수어 수정하기</a>-->
 
-</hr>
+<div class="layout">
+
+  <div class="header">
+    <p>한</p>수 <p>사</p>전
+  </div>
+
+  <h1 class="title">한국어 표제어 | <span class="title-highlight" th:text="${sign.title}"></span></h1>
+  <div class="video-container">
+    <video muted autoplay loop>
+      <source th:src="@{${sign.filepath}}" type="video/mp4">
+    </video>
+  </div>
+
+
+
+  <div class="info">
+    <div class="info-section">
+      <h2 class="info-title">표제어 설명</h2>
+      <hr>
+      <p class="info-content">품사 | 품사 데이터 불러오기 </p>
+      <p class="info-content">표제어 설명 데이터 불러오기</p>
+    </div>
+
+    <div class="info-section">
+      <h2 class="info-title">수형 설명</h2>
+      <hr>
+      <div class="content-container">
+        <img src="image.jpg" alt="수형 설명 이미지" class="info-image">
+        <div class="text-container">
+          <p class="info-content">수형 설명 데이터 불러오기</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h2 class="info-title">용례</h2>
+      <hr>
+      <p class="info-content">용례 예시 데이터 불러오기</p>
+      <p class="info-content">용례 예시 데이터 불러오기</p>
+    </div>
+  </div>
+
+  <a sec:authorize="hasRole('ADMIN')" th:href="@{/sign/delete(id = ${sign.id})}">수어 삭제하기</a>
+  <a sec:authorize="hasRole('ADMIN')" th:href="@{/sign/update/{id}(id = ${sign.id})}">수어 수정하기</a>
+
+
+  <div class="navbar">
+    <a th:href="@{/logout}" class="footer-link">
+      <i class="fas fa-sign-out-alt"></i><span>Log Out</span>
+    </a>
+    <a href="#">
+      <i class="fas fa-search"></i>
+      <span>Search</span>
+    </a>
+    <a th:href="@{/home}" class="footer-link">
+      <i class="fas fa-home"></i><span>Home</span>
+    </a>
+    <a href="#">
+      <i class="fas fa-bookmark"></i>
+      <span>Saved List</span>
+    </a>
+    <a th:href="@{/user/mypage}" class="footer-link">
+      <i class="fas fa-user"></i><span>My Page</span>
+    </a>
+  </div>
+</div>
 
 </body>
 </html>
