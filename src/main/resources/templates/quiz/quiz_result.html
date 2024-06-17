@@ -1,26 +1,281 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>퀴즈 결과 확인</title>
+    <style>
+
+        @font-face {
+            font-family: 'BMJUA';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'HakgyoansimBareondotumB';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimBareondotumB.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        html, body {
+             height: 100%;
+             margin: 0;
+             padding: 0;
+             background-color: white; /* 배경색을 회색으로 설정 */
+         }
+
+        body {
+            font-family: 'HakgyoansimBareondotumB', sans-serif;  /* 전체 페이지에 적용 */
+            display: grid;
+            grid-template-rows: 100px auto; /* 첫 번째 행을 헤더의 높이로 설정 */
+            height: 100vh;
+            margin: 0;
+        }
+
+        .layout {
+            grid-row: 2 / 3; /* 두 번째 행에 본문 배치 */
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            grid-row: 1 / 2; /* 첫 번째 행에 헤더 배치 */
+            position: sticky;
+            top: 0; /* 상단에 고정 */
+            width: 100%;
+            z-index: 1000;
+            background-color: white;
+        }
+
+         .header p {
+             display: inline;
+             font-size: 60px;
+             color: #81D4FA;
+         }
+
+         .fixed-title{
+                     font-family: 'BMJUA', sans-serif;
+                     color: black;
+                     text-align: center;
+                     padding: 5% 0;
+                     font-size: 60px;
+          }
+
+         .quiz-table {
+             width: 90%;
+             margin: 5% auto;
+             border-collapse: collapse;
+             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+         }
+
+         .quiz-table th, .quiz-table td {
+             border: 1px solid #ddd;
+             padding: 15px;
+             text-align: center;
+             font-size: 40px;
+         }
+
+         .quiz-table th:first-child, .quiz-table td:first-child {
+             width: 100px;
+         }
+
+         .quiz-table th:last-child, .quiz-table td:last-child {
+             width: 150px;
+             text-align: center;
+         }
+
+         .quiz-table th {
+             background-color: #00BFFF;
+             color: white;
+             font-family: 'HakgyoansimBareondotumB', sans-serif;
+         }
+
+         .quiz-table td a {
+             color: #333;
+             text-decoration: none;
+         }
+
+         .quiz-table td a:hover {
+             color: #00BFFF;
+             text-decoration: underline;
+         }
+
+         .quiz-table tbody tr td {
+             padding: 30px;
+         }
+
+    .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.pagination button {
+    border: none;
+    background-color: #81D4FA; /* Light blue background, matching your header p color */
+    color: white;
+    font-size: 30px;
+    padding: 10px 20px;
+    margin: 0 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover effects */
+}
+
+.pagination button:hover {
+    background-color: #00BFFF; /* A darker blue for hover state */
+    transform: translateY(-2px); /* Slight raise effect on hover */
+}
+
+.pagination button:disabled {
+    background-color: #ccc; /* Greyed out button for disabled state */
+    cursor: not-allowed;
+}
+
+.pagination span {
+    font-size: 40px;
+    text-decoration: underline;
+    color: #333; /* Dark grey for contrast */
+}
+
+
+         .navbar {
+             display: flex;
+             justify-content: space-around;
+             align-items: center;
+             background-color: #f8f8f8;
+             padding: 20px 0;
+             border-top: 1px solid #ddd;
+             width: 100%;
+             border-radius: 10px;
+             position: fixed; /* 고정 위치 */
+             bottom: 0; /* 하단 */
+             left: 0; /* 왼쪽 경계 */
+             right: 0; /* 오른쪽 경계 */
+             z-index: 1000; /* 다른 요소들 위에 나타나도록 z-index 설정 */
+         }
+
+         .navbar a {
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             justify-content: center;
+             font-size: 12px;
+             color: #333;
+             cursor: pointer;
+             text-decoration: none;
+         }
+
+         .navbar a i {
+             font-size: 40px;
+             margin-bottom: 20%;
+         }
+
+         .navbar a span {
+             display: block;
+             font-size: 30px;
+         }
+
+         .navbar a:hover {
+             color: #007bff;
+         }
+
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const rowsPerPage = 12;
+            const table = document.querySelector('.quiz-table tbody');
+            const pagination = document.querySelector('.pagination');
+            let currentPage = 1;
+
+            function renderPagination() {
+                const rowCount = table.rows.length;
+                const pageCount = Math.ceil(rowCount / rowsPerPage);
+
+                pagination.innerHTML = `<button onclick="changePage(-1)">이전</button>
+                                        <span id="pageNumber">${currentPage}</span>
+                                        <button onclick="changePage(1)">다음</button>`;
+                document.querySelector('#pageNumber').textContent = currentPage;
+
+                // Disable buttons if necessary
+                pagination.children[0].disabled = currentPage === 1;
+                pagination.children[2].disabled = currentPage === pageCount;
+            }
+
+            function displayRows() {
+                const start = (currentPage - 1) * rowsPerPage;
+                const end = start + rowsPerPage;
+                Array.from(table.rows).forEach((row, index) => {
+                    if (index >= start && index < end) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+                renderPagination();
+            }
+
+            window.changePage = function(step) {
+                const rowCount = table.rows.length;
+                const pageCount = Math.ceil(rowCount / rowsPerPage);
+                currentPage += step;
+                if (currentPage < 1) currentPage = 1;
+                else if (currentPage > pageCount) currentPage = pageCount;
+                displayRows();
+            }
+
+            displayRows();
+        });
+    </script>
 </head>
 <body>
+<div class="layout">
+    <div class="header">
+        <div class="fixed-title"><p>퀴</p>즈 <p>결</p>과</div>
+    </div>
 
-<h1>퀴즈 결과 확인</h1>
+    <table class="quiz-table">
+        <thead>
+        <tr>
+            <th>퀴즈 번호</th>
+            <th>결과</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="result : ${results}">
+            <td th:text="${result.quiz.quiz_id}"></td>
+            <td th:text="${result.correct ? '정답' : '오답'}"></td>
+        </tr>
+        </tbody>
+    </table>
 
-<table>
-    <thead>
-    <tr>
-        <th>퀴즈 번호</th>
-        <th>결과</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="result : ${results}">
-        <td th:text="${result.quiz.quiz_id}"></td>
-        <td th:text="${result.correct ? '정답' : '오답'}"></td>
-    </tr>
-    </tbody>
-</table>
+    <div class="pagination">
+        <button onclick="previousPage()">이전</button>
+        <span id="pageNumber">1</span>
+        <button onclick="nextPage()">다음</button>
+    </div>
 
+    <div class="navbar">
+        <a th:href="@{/logout}" class="footer-link">
+            <i class="fas fa-sign-out-alt"></i><span>Log Out</span>
+        </a>
+        <a th:href="@{/home}" class="footer-link">
+            <i class="fas fa-home"></i><span>Home</span>
+        </a>
+        <a th:href="@{/quiz/result}" class="footer-link">
+            <i class="fas fa-clipboard-list"></i><span>퀴즈 결과</span>
+        </a>
+        <a th:href="@{/user/mypage}" class="footer-link">
+            <i class="fas fa-user"></i><span>My Page</span>
+        </a>
+    </div>
+</div>
 </body>
 </html>

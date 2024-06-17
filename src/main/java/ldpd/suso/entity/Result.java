@@ -27,4 +27,5 @@ public class Result {
         this.quiz = quiz;
         this.correct = correct;
     }
+    public boolean getCorrect() { return correct; }
 }

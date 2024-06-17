@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Mypage</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>My Profile</title>
     <style>
         @font-face {
             font-family: 'BMJUA';
@@ -10,105 +11,105 @@
             font-weight: normal;
             font-style: normal;
         }
-
-        body {
-            font-family: 'BMJUA', sans-serif;
+        @font-face {
+            font-family: 'HakgyoansimBareondotumB';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimBareondotumB.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+        html, body {
+            width:100%;
+            height: 100%;
             margin: 0;
             padding: 0;
+            background-color: #EEEEEE;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            font-family: 'HakgyoansimBareondotumB', sans-serif;
         }
 
+        .main {
+        width: 90%; /* 전체 너비 사용 */
+        display: flex; /* 내부 요소를 flexbox로 관리 */
+        justify-content: center; /* 가로 중앙 정렬 */
+        align-items: center; /* 세로 중앙 정렬 */
+        min-height: 100vh; /* 최소 높이를 뷰포트 높이의 100%로 설정 */
+        box-sizing: border-box; /* 패딩과 테두리를 너비에 포함 */
+    }
         .col-lg-4 {
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
             border-radius: 10px;
-            overflow: hidden;
-            padding: 20px;
-            text-align: center;
-            background: white; /* Ensure the background is white */
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px;
         }
-
         .fa-user {
-            font-size: 30px;
+            font-size: 60px;
             margin-bottom: 20px;
             color: #333;
         }
-
         .form-group {
             text-align: left;
+            width: 100%;
             margin-bottom: 20px;
         }
-
         .form-group label {
-            display: block;
-            font-size: 20px;
+            font-size: 40px;
             color: #888;
-            margin-bottom: 5px;
         }
-
         .form-group p {
-            font-size: 20px;
-            margin: 0;
+            font-size: 40px;
             color: #333;
         }
-
-        .form-group a {
-            display: inline-block;
-            font-size: 18px;
-            color: black;
-            text-decoration: none;
-            margin-top: 5px;
-            padding: 5px 20px;
-            background-color: #E2E2E2; /* Use the same color for button */
-            border: none;
-            border-radius: 5px; /* Rounded corners for the button */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Simple shadow for depth */
-            cursor: pointer; /* Pointer cursor on hover */
-        }
-
-        .form-group a:hover {
-            background-color: black; /* Darker shade on hover */
-            color: white;
-        }
-
-        a.delete-link {
-            color: grey;
-            display: block;
-            margin-top: 10px;
-            padding: 12px 20px;
-            border: none;
-            background: none; /* No background for delete link */
-            font-size: 18px;
-        }
-
-        .delete-link:hover {
-            text-decoration: underline;ㅕ
-            color: darkred; /* Darker red on hover */
-        }
-
         .subform {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            padding: 0;
+            align-items: center;
+            width: 100%;
         }
-
-        .subform a{
-            width:20%;
-            text-align:center;
+        .form-group a {
+            font-size: 40px;
+            color: black;
+            text-decoration: none;
+            background-color: #E2E2E2;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .form-group a:hover {
+            background-color: black;
+            color: white;
+        }
+        a.delete-link {
+            color: grey;
+            text-decoration: underline;
+            margin-top: 10px;
+            padding: 12px 20px;
+            font-size: 40px;
+        }
+        a.delete-link:hover {
+            text-decoration: underline;
+            color: red;
+        }
+        hr {
+            border: none;
+            border-top: 3px solid black;
+            margin-bottom: 20px; /* 선 아래에 20px 마진 추가 */
+            width: 100%;
         }
 
         .change-password-link {
+            width:90%;
+            text-align:center;
             display: inline-block;
-            font-size: 18px;
+            font-size: 40px;
             color: white; /* Example: Blue color for the link */
             text-decoration: none;
             margin-top: 10px;
-            padding: 10px 30%;
+            padding: 10px;
             background-color: black; /* Light gray background */
             border: 1px solid #007BFF; /* Blue border */
             border-radius: 5px; /* Rounded corners */
@@ -116,38 +117,81 @@
             cursor: pointer; /* Pointer cursor on hover */
         }
 
+
+    .navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f8f8f8;
+  padding: 20px 0;
+  border-top: 1px solid #ddd;
+  width: 100%;
+  border-radius: 10px;
+  position: fixed; /* 고정 위치 */
+  bottom: 0; /* 하단 */
+  left: 0; /* 왼쪽 경계 */
+  right: 0; /* 오른쪽 경계 */
+  z-index: 1000; /* 다른 요소들 위에 나타나도록 z-index 설정 */
+}
+
+    .navbar a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #333;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .navbar a i {
+      font-size: 40px;
+      margin-bottom: 20%;
+    }
+    .navbar a span {
+      display: block;
+      font-size: 30px;
+    }
+    .navbar a:hover {
+      color: #007bff;
+    }
+
     </style>
 </head>
 <body>
-<div class="col-lg-4">
-    <div class="fa-user">내 프로필</div>
-
-
-
-    <div class="form-group">
-        <label th:for="username">아이디</label>
-        <div class="subform">
-            <p th:text="${member.username}"></p>
-            <a th:href="@{/user/update/username}">아이디 수정</a>
+<div class="main">
+    <div class="col-lg-4">
+        <div class="fa-user">내 프로필</div>
+        <hr>
+        <div class="form-group">
+            <label th:for="username">아이디</label>
+            <div class="subform">
+                <p th:text="${member.username}"></p>
+                <a th:href="@{/user/update/username}">아이디 수정</a>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label th:for="name">이름</label>
-        <div class="subform">
-            <p th:text="${member.name}"></p>
-            <a th:href="@{/user/update/name}">이름 수정</a>
+        <div class="form-group">
+            <label th:for="name">이름</label>
+            <div class="subform">
+                <p th:text="${member.name}"></p>
+                <a th:href="@{/user/update/name}">이름 수정</a>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label th:for="email">이메일</label>
-        <div class="subform">
-            <p th:text="${member.email}"></p>
-            <a th:href="@{/user/update/email}">이메일 수정</a>
+        <div class="form-group">
+            <label th:for="email">이메일</label>
+            <div class="subform">
+                <p th:text="${member.email}"></p>
+                <a th:href="@{/user/update/email}">이메일 수정</a>
+            </div>
         </div>
+        <hr>
+        <a class="change-password-link" th:href="@{/user/update/password}">비밀번호 변경하기</a>
+        <br>
+        <a class="delete-link" th:href="@{/user/delete}">회원 정보 삭제하기</a>
     </div>
-    <a class="change-password-link" th:href="@{/user/update/password}">비밀번호 변경하기</a>
-    <br>
-    <a class="delete-link" th:href="@{/user/delete}">회원 정보 삭제하기</a>
+    <div th:replace="navbar :: navbar"></div>
 </div>
+
+
 </body>
 </html>

@@ -28,6 +28,7 @@
             width: 80%;;
             margin: 0 auto;
         }
+
         .header h1 {
             color: #0056b3; /* 헤더의 텍스트 색상 */
             text-align: center; /* 텍스트를 중앙 정렬 */
@@ -86,7 +87,33 @@
     padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    font-s<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>수어 번역</title>
+</head>
+<body>
+<video id="video" width="100%" height="100%" autoplay></video>
+
+<script>
+        const video = document.getElementById('video');
+        let mediaRecorder;
+        let chunks = [];
+
+        // 웹캠 비디오 스트림 가져오기
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+                mediaRecorder = new MediaRecorder(stream);
+                mediaRecorder.ondataavailable = handleDataAvailable;
+            })
+            .catch(err => {
+                console.error('Error accessing webcam:', err);
+            });
+    </script>
+</body>
+</html>ize: 16px;
     display: inline-block;
 }
 
@@ -154,5 +181,6 @@
     <button type="submit">수어 사전 수정</button>
   </form>
 </div>
+
 </body>
 </html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="navbar">
+    <div class="navbar">
+        <a th:href="@{/logout}" class="footer-link">
+            <i class="fas fa-sign-out-alt"></i><span>Log Out</span>
+        </a>
+        <a th:href="@{/home}" class="footer-link">
+            <i class="fas fa-home"></i><span>Home</span>
+        </a>
+        <a th:href="@{/user/mypage}" class="footer-link">
+            <i class="fas fa-user"></i><span>My Page</span>
+        </a>
+    </div>
+</div>
+</body>
+</html>

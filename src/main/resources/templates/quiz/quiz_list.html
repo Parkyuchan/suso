@@ -1,21 +1,263 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>게시글 리스트 페이지</title>
+    <style>
+        @font-face {
+            font-family: 'BMJUA';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'HakgyoansimBareondotumB';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimBareondotumB.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+       html, body {
+             height: 100%;
+             margin: 0;
+             padding: 0;
+             background-color: white; /* 배경색을 회색으로 설정 */
+         }
+
+        body {
+            font-family: 'HakgyoansimBareondotumB', sans-serif;  /* 전체 페이지에 적용 */
+            display: grid;
+            grid-template-rows: 100px auto; /* 첫 번째 행을 헤더의 높이로 설정 */
+            height: 100vh;
+            margin: 0;
+        }
+
+        .layout {
+            grid-row: 2 / 3; /* 두 번째 행에 본문 배치 */
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            grid-row: 1 / 2; /* 첫 번째 행에 헤더 배치 */
+            position: sticky;
+            top: 0; /* 상단에 고정 */
+            width: 100%;
+            z-index: 1000;
+            background-color: white;
+        }
+
+         .header p {
+             display: inline;
+             font-size: 60px;
+             color: #81D4FA;
+         }
+
+         .fixed-title{
+                     font-family: 'BMJUA', sans-serif;
+                     color: black;
+                     text-align: center;
+                     padding: 5% 0;
+                     font-size: 60px;
+          }
+
+
+        .quiz-image {
+            display: block; /* 이미지를 블록 요소로 설정 */
+            margin: 20px auto 40px; /* 위쪽 20px, 좌우 자동, 아래쪽 40px 마진 적용 */
+            width: 60%; /* 이미지의 너비를 90%로 설정 */
+        }
+
+        .quiz-table {
+            width: 90%;
+            margin: 5% auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-table th, .quiz-table td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+            font-size: 40px;
+        }
+
+        .quiz-table th:first-child, .quiz-table td:first-child {
+            width: 100px;
+        }
+
+        .quiz-table th:last-child, .quiz-table td:last-child {
+            width: 150px; /* 카테고리 열의 너비를 150픽셀로 설정 */
+            text-align: center; /* 텍스트 중앙 정렬 */
+        }
+
+        .quiz-table th {
+            background-color: #00BFFF;
+            color: white;
+            font-family: 'HakgyoansimBareondotumB', sans-serif;
+        }
+
+        .quiz-table td a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .quiz-table td a:hover {
+            color: #00BFFF;
+            text-decoration: underline;
+        }
+
+        /* 데이터 행에만 패딩 적용 */
+        .quiz-table tbody tr td {
+            padding: 30px; /* 원하는 패딩 값 */
+        }
+
+        .info-panel h2 {
+            font-size: 35px; /* 제목의 폰트 크기 조정 */
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .info-panel p {
+            font-size: 28px; /* 단락의 폰트 크기 조정 */
+            color: #666;
+        }
+
+        .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.pagination button {
+    border: none;
+    background-color: #81D4FA; /* Light blue background, matching your header p color */
+    color: white;
+    font-size: 30px;
+    padding: 10px 20px;
+    margin: 0 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover effects */
+}
+
+.pagination button:hover {
+    background-color: #00BFFF; /* A darker blue for hover state */
+    transform: translateY(-2px); /* Slight raise effect on hover */
+}
+
+.pagination button:disabled {
+    background-color: #ccc; /* Greyed out button for disabled state */
+    cursor: not-allowed;
+}
+
+.pagination span {
+    font-size: 40px;
+    text-decoration: underline;
+    color: #333; /* Dark grey for contrast */
+}
+
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: #f8f8f8;
+            padding: 20px 0;
+            border-top: 1px solid #ddd;
+            width: 100%;
+            border-radius: 10px;
+            position: fixed; /* 고정 위치 */
+            bottom: 0; /* 하단 */
+            left: 0; /* 왼쪽 경계 */
+            right: 0; /* 오른쪽 경계 */
+            z-index: 1000; /* 다른 요소들 위에 나타나도록 z-index 설정 */
+        }
+
+        .navbar a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #333;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .navbar a i {
+            font-size: 40px;
+            margin-bottom: 20%;
+        }
+
+        .navbar a span {
+            display: block;
+            font-size: 30px;
+        }
+
+        .navbar a:hover {
+            color: #007bff;
+        }
+
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const rowsPerPage = 5; // 한 페이지에 표시할 행의 수
+            const rows = document.querySelectorAll('.quiz-table tbody tr'); // 테이블의 모든 행을 선택
+            let currentPage = 1; // 현재 페이지 초기화
+            const totalPage = Math.ceil(rows.length / rowsPerPage); // 전체 페이지 수 계산
+
+            function displayRows() {
+                const start = (currentPage - 1) * rowsPerPage;
+                const end = start + rowsPerPage;
+
+                // 모든 행 숨기기
+                rows.forEach(row => {
+                    row.style.display = 'none';
+                });
+
+                // 현재 페이지에 해당하는 행만 표시
+                rows.forEach((row, index) => {
+                    if (index >= start && index < end) {
+                        row.style.display = '';
+                    }
+                });
+
+                // 페이지 번호 업데이트
+                document.getElementById('pageNumber').textContent = currentPage;
+            }
+
+            window.previousPage = function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    displayRows();
+                }
+            }
+
+            window.nextPage = function() {
+                if (currentPage < totalPage) {
+                    currentPage++;
+                    displayRows();
+                }
+            }
+
+            displayRows(); // 초기 페이지 표시
+        });
+    </script>
+
 </head>
 <body>
-
 <div class="layout">
     <div class="header">
         <div class="fixed-title"><p>수</p>어 <p>퀴</p>즈</div>
-
-
     </div>
 
     <img src="/image/qquiz.png" alt="퀴즈 푸는 사람" class="quiz-image">
-
 
     <table class="quiz-table">
         <thead>
@@ -36,231 +278,26 @@
         </tbody>
     </table>
 
-    <div class="info-panel">
-        <h2>퀴즈 정보</h2>
-        <p>이 퀴즈는 수어 영상을 보고, 해당 수어가 의미하는 한국어 표제어를 선택하는 형식입니다.</p>
-        <p>영상은 반복적으로 제공되며, 제시된 4개의 선택지 중 정답을 골라야 합니다.</p>
-        <p>각 퀴즈를 통해 수어에 대한 이해도를 높이고, 언어 능력을 향상시킬 수 있습니다.</p>
+    <div class="pagination">
+        <button onclick="previousPage()">이전</button>
+        <span id="pageNumber">1</span>
+        <button onclick="nextPage()">다음</button>
     </div>
 
-
-
-
     <div class="navbar">
-        <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="footer-link">
+        <a th:href="@{/logout}" class="footer-link">
             <i class="fas fa-sign-out-alt"></i><span>Log Out</span>
-        </a>
-        <a sec:authorize="isAnonymous()" th:href="@{/login}" class="footer-link">
-            <i class="fas fa-sign-out-alt"></i><span>Log In</span>
         </a>
         <a th:href="@{/home}" class="footer-link">
             <i class="fas fa-home"></i><span>Home</span>
         </a>
+        <a th:href="@{/quiz/result}" class="footer-link">
+            <i class="fas fa-clipboard-list"></i><span>퀴즈 결과</span>
+        </a>
         <a th:href="@{/user/mypage}" class="footer-link">
             <i class="fas fa-user"></i><span>My Page</span>
         </a>
-        <a sec:authorize="isAuthenticated()" th:href="@{/quiz/result}" class="footer-link">
-            <i class="fas fa-user"></i><span>퀴즈 결과</span>
-        </a>
     </div>
-
-
-
 </div>
 </body>
-<style>
-    @font-face {
-        font-family: 'BMJUA';
-        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
-        font-weight: normal;
-        font-style: normal;
-    }
-
-
-
-    @font-face {
-        font-family: 'HakgyoansimBareondotumB';
-        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimBareondotumB.woff2') format('woff2');
-        font-weight: 700;
-        font-style: normal;
-    }
-
-    html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: white; /* 배경색을 회색으로 설정 */
-  }
-
-     body {
-        font-family: 'BMJUA', sans-serif;
-        background-position: center;
-        background-repeat: no-repeat;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        margin: 0;
-    }
-    .layout {
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* 모든 자식 요소를 가운데 정렬 */
-        width: 100%; /* 부모 컨테이너의 너비를 최대로 설정 */
-}
-
-    .fixed-title{
-      font-family: 'BMJUA', sans-serif;
-        color: black;
-        text-align: center;
-        padding: 5% 0;
-        font-size: 60px;
-    }
-
-   .header {
-      position: fixed;  /* Keep the header at a fixed position */
-      top: 0;           /* Align the header at the top of the viewport */
-      left: 0;          /* Align the header to the left of the viewport */
-      right: 0;         /* Align the header to the right of the viewport */
-      width: 90%;       /* Ensure the header spans the full width of the viewport */
-      margin: auto;     /* Automatically adjust the margin to center the header */
-      z-index: 1000;    /* Higher index to keep the header above other content */
-  }
-
-    .header p {
-        display: inline;
-        font-size: 60px;
-        color: #81D4FA;
-    }
-
-    .search-section {
-        font-family: 'HakgyoansimBareondotumB', sans-serif;  /* 전체 페이지에 적용 */
-        background-color: none;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .search-section input[type="text"] {
-    flex-grow: 1;
-    border: 2px solid #00BFFF;
-    padding: 20px;
-    border-radius: 20px;
-    font-size: 30px;
-    font-family: 'HakgyoansimBareondotumB', sans-serif; /* 폰트 변경 */
-}
-
-
-    .search-section button {
-        background-color: #00BFFF;
-        color: white;
-        border: none;
-        border-radius: 20px;
-        font-family: 'HakgyoansimBareondotumB', sans-serif;
-        padding: 20px 20px;
-        font-size: 30px;
-        margin-left: 10px;
-        cursor: pointer;
-    }
-
-    .quiz-image {
-    display: block; /* 이미지를 블록 요소로 설정 */
-    margin: 20px auto 40px; /* 위쪽 20px, 좌우 자동, 아래쪽 40px 마진 적용 */
-    width: 60%; /* 이미지의 너비를 90%로 설정 */
-}
-
-
-     .quiz-table {
-        width: 90%;
-        margin: 5% auto;
-        border-collapse: collapse;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .quiz-table th, .quiz-table td {
-        border: 1px solid #ddd;
-        padding: 15px;
-        text-align: center;
-        font-size: 40px;
-    }
-
-    .quiz-table th:first-child, .quiz-table td:first-child {
-        width: 100px;
-    }
-
-    .quiz-table th:last-child, .quiz-table td:last-child {
-    width: 150px; /* 카테고리 열의 너비를 150픽셀로 설정 */
-    text-align: center; /* 텍스트 중앙 정렬 */
-}
-
-    .quiz-table th {
-        background-color: #00BFFF;
-        color: white;
-        font-family: 'HakgyoansimBareondotumB', sans-serif;
-    }
-
-    .quiz-table td a {
-        color: #333;
-        text-decoration: none;
-    }
-
-    .quiz-table td a:hover {
-        color: #00BFFF;
-        text-decoration: underline;
-    }
-    /* 데이터 행에만 패딩 적용 */
-    .quiz-table tbody tr td {
-        padding: 30px; /* 원하는 패딩 값 */
-    }
-
-    .info-panel h2 {
-    font-size: 35px; /* 제목의 폰트 크기 조정 */
-    margin-bottom: 10px;
-    color: #333;
-}
-
-    .info-panel p {
-        font-size: 28px; /* 단락의 폰트 크기 조정 */
-        color: #666;
-    }
-
-
-    .navbar {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background-color: #f8f8f8;
-  padding: 20px 0;
-  border-top: 1px solid #ddd;
-  width: 100%;
-  border-radius: 10px;
-  position: fixed; /* 고정 위치 */
-  bottom: 0; /* 하단 */
-  left: 0; /* 왼쪽 경계 */
-  right: 0; /* 오른쪽 경계 */
-  z-index: 1000; /* 다른 요소들 위에 나타나도록 z-index 설정 */
-}
-
-    .navbar a {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: #333;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .navbar a i {
-      font-size: 40px;
-      margin-bottom: 20%;
-    }
-    .navbar a span {
-      display: block;
-      font-size: 30px;
-    }
-    .navbar a:hover {
-      color: #007bff;
-    }
-
-</style>
 </html>

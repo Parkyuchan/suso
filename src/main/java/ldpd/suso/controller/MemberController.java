@@ -2,6 +2,7 @@ package ldpd.suso.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.constraints.Pattern;
 import ldpd.suso.entity.Member;
 import ldpd.suso.repository.MemberRepository;
 import ldpd.suso.security.MemberCreateForm;
@@ -49,24 +50,6 @@ public class MemberController {
         }
 
         try {
-
-            /*Member existingMember = memberService.userFindUsername(memberCreateForm.getUsername());
-            if (existingMember != null) {
-                bindingResult.reject("signupFailed", "이미 등록된 사용자 아이디입니다.");
-                return "member/signup_form";
-            }
-
-            existingMember = memberService.userFindName(memberCreateForm.getName());
-            if (existingMember != null) {
-                bindingResult.reject("signupFailed", "이미 등록된 사용자 아이디입니다.");
-                return "member/signup_form";
-            }
-
-            existingMember = memberService.userFindEmail(memberCreateForm.getEmail());
-            if (existingMember != null) {
-                bindingResult.reject("signupFailed", "이미 등록된 사용자 아이디입니다.");
-                return "member/signup_form";
-            }*/
             // 회원 가입 전 중복 검사
             Member existingMember = memberRepository.findByusername(memberCreateForm.getUsername());
             if (existingMember != null && existingMember.getUsername() != null) {

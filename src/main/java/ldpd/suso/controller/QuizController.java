@@ -51,7 +51,7 @@ public class QuizController {
     }
 
     @PostMapping("/quiz/submit")
-    public String submitQuiz(@RequestParam Integer quiz_id, @RequestParam Integer choiceId,
+    public String submitQuiz(@RequestParam Integer quiz_id, @RequestParam(required = false) Integer choiceId,
                              Principal principal, Model model) {
 
         Quiz quiz = quizService.quizDetail(quiz_id);
@@ -60,6 +60,13 @@ public class QuizController {
             //퀴즈가 없는 경우
             model.addAttribute("error", "퀴즈를 찾을 수 없습니다.");
             return "quiz/quiz_error";
+        }
+
+        if(choiceId == null || choiceId == 0){
+            //답변이 없는 경우
+            model.addAttribute("message", "답변을 선택해 주세요!");
+            model.addAttribute("searchUrl", "/quiz/" + quiz_id);
+            return "message";
         }
 
         Sign selectedAnswer = signRepository.findById(choiceId).orElse(null);
@@ -73,8 +80,8 @@ public class QuizController {
 
         String username = principal.getName();
         Member member = memberRepository.findByusername(username);
-        Result result = new Result(member, quiz, isCorrect);
-        resultService.save(result);
+
+        resultService.save(isCorrect, member, quiz);
 
         if (isCorrect) {
             model.addAttribute("message", "정답입니다!");

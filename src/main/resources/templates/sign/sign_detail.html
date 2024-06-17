@@ -219,7 +219,7 @@ video {
       <h2 class="info-title">표제어 설명</h2>
       <hr>
       <p class="info-content">품사 | 품사 데이터 불러오기 </p>
-      <p class="info-content">표제어 설명 데이터 불러오기</p>
+      <p class="info-content" th:text="${sign.sign_desc}"></p>
     </div>
 
     <div class="info-section">
@@ -237,7 +237,6 @@ video {
       <h2 class="info-title">용례</h2>
       <hr>
       <p class="info-content">용례 예시 데이터 불러오기</p>
-      <p class="info-content">용례 예시 데이터 불러오기</p>
     </div>
   </div>
 
@@ -245,25 +244,8 @@ video {
   <a sec:authorize="hasRole('ADMIN')" th:href="@{/sign/update/{id}(id = ${sign.id})}">수어 수정하기</a>
 
 
-  <div class="navbar">
-    <a th:href="@{/logout}" class="footer-link">
-      <i class="fas fa-sign-out-alt"></i><span>Log Out</span>
-    </a>
-    <a href="#">
-      <i class="fas fa-search"></i>
-      <span>Search</span>
-    </a>
-    <a th:href="@{/home}" class="footer-link">
-      <i class="fas fa-home"></i><span>Home</span>
-    </a>
-    <a href="#">
-      <i class="fas fa-bookmark"></i>
-      <span>Saved List</span>
-    </a>
-    <a th:href="@{/user/mypage}" class="footer-link">
-      <i class="fas fa-user"></i><span>My Page</span>
-    </a>
-  </div>
+  <div th:replace="navbar :: navbar"></div>
+
 </div>
 
 </body>

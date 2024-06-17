@@ -70,6 +70,7 @@ public class QuizService {
     }   //퀴즈 디테일에서 사용될 정보를 가져온다.
 
     public List<Result> getQuizResultsByUsername(String username) {
+
         return resultRepository.findByMemberUsername(username);
     }
 }

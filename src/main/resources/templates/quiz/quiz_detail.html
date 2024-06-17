@@ -22,60 +22,38 @@
       </video>
 
       <h2 th:text="'Q'+${quiz.quiz_id}+'. 수어 영상을 보고 알맞은 표제어 하나를 선택하세요.'"></h2>
+
       <form action="/quiz/submit" method="post" th:csrf>
         <input type="hidden" name="quiz_id" th:value="${quiz.quiz_id}">
         <th:block th:each="choice : ${choices}">
           <input type="radio" th:id="'choice' + ${choice.id}" name="choiceId" th:value="${choice.id}">
-          <label th:for="'choice' + ${choice.id}" th:text="${choice.title}"></label>
-          <br>
+          <label th:for="'choice' + ${choice.id}" th:text="${choice.title}"></label><br>
         </th:block>
-        <input type="submit" value="선택 완료">
-      </form>
-      <form>
-        <label class="choice" id="label1">
-          <input type="radio" id="choice1" name="choice" value="choice1" hidden>
-          선택지 1
-        </label><br>
-
-        <label class="choice" id="label2">
-          <input type="radio" id="choice2" name="choice" value="choice2" hidden>
-          선택지 2
-        </label><br>
-
-        <label class="choice" id="label3">
-          <input type="radio" id="choice3" name="choice" value="choice3" hidden>
-          선택지 3
-        </label><br>
-
-        <label class="choice" id="label4">
-          <input type="radio" id="choice4" name="choice" value="choice4" hidden>
-          선택지 4
-        </label><br><br>
-
         <input type="submit" value="선택 완료">
       </form>
 
     </div>
-
   </div>
 
-
+  <div class="info-panel">
+    <h2>퀴즈 정보</h2>
+    <p>이 퀴즈는 수어 영상을 보고, 해당 수어가 의미하는 한국어 표제어를 선택하는 형식입니다.</p>
+    <p>하단에 퀴즈 결과 메뉴를 클릭하면 이때동안 푸신 문제들을 확인하실수 있습니다. </p>
+  </div>
 </div>
+
+
+
 
 <div class="navbar">
   <a th:href="@{/logout}" class="footer-link">
     <i class="fas fa-sign-out-alt"></i><span>Log Out</span>
   </a>
-  <a href="#">
-    <i class="fas fa-search"></i>
-    <span>Search</span>
-  </a>
   <a th:href="@{/home}" class="footer-link">
     <i class="fas fa-home"></i><span>Home</span>
   </a>
-  <a href="#">
-    <i class="fas fa-bookmark"></i>
-    <span>Saved List</span>
+  <a th:href="@{/quiz/result}" class="footer-link">
+    <i class="fas fa-clipboard-list"></i><span>퀴즈 결과</span>
   </a>
   <a th:href="@{/user/mypage}" class="footer-link">
     <i class="fas fa-user"></i><span>My Page</span>
@@ -98,50 +76,52 @@
         font-style: normal;
     }
 
-     html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: white; /* 배경색을 회색으로 설정 */
-  }
+    html, body {
+             height: 100%;
+             margin: 0;
+             padding: 0;
+             background-color: white; /* 배경색을 회색으로 설정 */
+         }
 
-     body {
-        font-family: 'BMJUA', sans-serif;
-        background-position: center;
-        background-color: #EEEEEE;
-        background-repeat: no-repeat;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        margin: 0;
-    }
+        body {
+            font-family: 'HakgyoansimBareondotumB', sans-serif;  /* 전체 페이지에 적용 */
+            display: grid;
+            grid-template-rows: 100px auto; /* 첫 번째 행을 헤더의 높이로 설정 */
+            height: 100vh;
+            margin: 0;
+        }
 
+        .layout {
+            grid-row: 2 / 3; /* 두 번째 행에 본문 배치 */
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
 
-<!--  헤더-->
-    .header {
-        font-family: 'BMJUA', sans-serif;
-      color: black;
-      text-align: center;
-      padding: 2% 0;
-      font-size: 60px;
-      width: 100%;
-    }
+        }
 
-    .fixed-title{
-      font-family: 'BMJUA', sans-serif;
-        color: black;
-        text-align: center;
-        padding: 5% 0;
-        font-size: 60px;
-    }
+        .header {
+            grid-row: 1 / 2; /* 첫 번째 행에 헤더 배치 */
+            position: sticky;
+            top: 0; /* 상단에 고정 */
+            width: 100%;
+            z-index: 1000;
+            background-color: white;
+        }
 
+         .header p {
+             display: inline;
+             font-size: 60px;
+             color: #81D4FA;
+         }
 
-    .header p {
-        display: inline;
-        font-size: 60px;
-        color: #81D4FA;
-    }
-
+         .fixed-title{
+                     font-family: 'BMJUA', sans-serif;
+                     color: black;
+                     text-align: center;
+                     padding: 5% 0;
+                     font-size: 60px;
+          }
 
 
      .navbar {
@@ -169,19 +149,19 @@
       border-radius: 20px;
       box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
     }
-  .back-button {
-   background-color: #fff;
-  padding: 10px 20px; /* 패딩 */
-  font-size: 35px; /* 폰트 크기 */
-  border-radius: 10px; /* 둥근 모서리 */
-  border: 1px solid #ccc; /* 테두리 */
-  cursor: pointer; /* 커서 모양 변경 */
-  margin-right:2%;
-}
+    .back-button {
+       background-color: #fff;
+      padding: 10px 20px; /* 패딩 */
+      font-size: 35px; /* 폰트 크기 */
+      border-radius: 10px; /* 둥근 모서리 */
+      border: 1px solid #ccc; /* 테두리 */
+      cursor: pointer; /* 커서 모양 변경 */
+      margin-right:2%;
+    }
 
-.back-button:hover {
-  background-color: #e0e0e0; /* 호버 시 배경색 변경 */
-}
+    .back-button:hover {
+      background-color: #e0e0e0; /* 호버 시 배경색 변경 */
+    }
 
     .quiz {
       text-align: center;
@@ -190,11 +170,10 @@
 
 
     .quiz h2 {
-        font-family: 'HakgyoansimBareondotumB', sans-serif;
-
-      margin-left: 10px; /* 레이블과 라디오 버튼 사이 여백 설정 */
-  font-size: 35px; /* h2 폰트 크기 설정 */
-  margin-top: 20px; /* 위쪽 여백 설정 */
+    font-family: 'HakgyoansimBareondotumB', sans-serif;
+    margin-left: 10px; /* 레이블과 라디오 버튼 사이 여백 설정 */
+    font-size: 35px; /* h2 폰트 크기 설정 */
+    margin-top: 20px; /* 위쪽 여백 설정 */
 }
 
 .quiz form {
@@ -206,7 +185,7 @@
 
 
 .quiz form label {
-  font-size: 30px; /* 선택지 폰트 크기 설정 */
+  font-size: 40px; /* 선택지 폰트 크기 설정 */
 }
 
 
@@ -221,13 +200,8 @@
   cursor: pointer; /* 마우스 포인터를 손가락 모양으로 변경 */
   display: block; /* 블록 요소로 변경 */
   margin-left: auto; /* 오른쪽 정렬 */
-          font-family: 'HakgyoansimBareondotumB', sans-serif;  /* 전체 페이지에 적용 */
-
+  font-family: 'HakgyoansimBareondotumB', sans-serif;  /* 전체 페이지에 적용 */
 }
-
-
-
-
     .problem{
       width:100%;
       height:auto;
@@ -272,6 +246,49 @@
       margin-bottom:5%;
     }
 
+    .info-panel {
+  background-color: #ffffff; /* 밝은 배경색 설정 */
+  border-radius: 15px; /* 모서리를 둥글게 처리 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 추가 */
+  padding: 30px; /* 내부 여백 추가 */
+  margin: 20px; /* 외부 여백 추가, 중앙 정렬을 위해 위 아래 여백 제공 */
+  text-align: left; /* 텍스트 왼쪽 정렬 */
+  width: 80%; /* 폭 설정 */
+  margin-top: 20px; /* 상단 여백 추가 */
+  margin-bottom: 100px; /* 하단 여백 추가 */
+}
+
+.info-panel h2 {
+  color: #333; /* 제목 색상 설정 */
+  font-size: 35px; /* 제목 폰트 크기 */
+  margin-bottom: 15px; /* 제목 아래 마진 */
+  font-weight: bold; /* 폰트 굵기 */
+}
+
+.info-panel p {
+  color: #666; /* 본문 텍스트 색상 설정 */
+  font-size: 30px; /* 본문 폰트 크기 */
+  line-height: 1.6; /* 줄 간격 */
+  margin-bottom: 10px; /* 단락 간 마진 */
+}
+
+
+
+    .navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f8f8f8;
+  padding: 20px 0;
+  border-top: 1px solid #ddd;
+  width: 100%;
+  border-radius: 10px;
+  position: fixed; /* 고정 위치 */
+  bottom: 0; /* 하단 */
+  left: 0; /* 왼쪽 경계 */
+  right: 0; /* 오른쪽 경계 */
+  z-index: 1000; /* 다른 요소들 위에 나타나도록 z-index 설정 */
+}
 
     .navbar a {
       display: flex;
