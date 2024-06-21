@@ -18,13 +18,23 @@ public class ResultService {
     public void save(boolean isCorrect, Member member, Quiz quiz) {
         Optional<Result> result = resultRepository.findByQuiz(quiz);
         if (result.isPresent()) {
-            if (result.get().getMember() == member)
-                if(isCorrect && !(result.get().getCorrect())) {
-                result.get().setCorrect(true);
-                resultRepository.save(result.get());
+            if (result.get().getMember() == member) {
+                if (isCorrect) {
+                    result.get().upCorrectCount();
                 }
+                else{
+                    result.get().upWrongCount();
+                }
+                resultRepository.save(result.get());
+            }
         } else {
-            Result newResult = new Result(member, quiz, isCorrect);
+            Result newResult = new Result(member, quiz);
+            if (isCorrect) {
+                newResult.upCorrectCount();
+            }
+            else{
+                newResult.upWrongCount();
+            }
             resultRepository.save(newResult);
         }
     }

@@ -20,12 +20,17 @@ public class Result {
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;
 
-    private boolean correct;
 
-    public Result(Member member, Quiz quiz, boolean correct) {
+    private int correct_count;
+    private int wrong_count;
+
+    public Result(Member member, Quiz quiz) {
         this.member = member;
         this.quiz = quiz;
-        this.correct = correct;
+        this.correct_count = 0;
+        this.wrong_count = 0;
     }
-    public boolean getCorrect() { return correct; }
+    public void upCorrectCount() { this.correct_count++; }
+
+    public void upWrongCount() { this.wrong_count++; }
 }

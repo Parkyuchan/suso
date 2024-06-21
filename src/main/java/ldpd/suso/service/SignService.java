@@ -21,23 +21,33 @@ public class SignService {
 
     // Service 메서드는 DB와 직접적인 연관
 
-    public void registerSign(Sign sign, MultipartFile file) throws Exception {  //등록할 수어를 db에 저장
-        if (file != null && !file.isEmpty() && !sign.getTitle().isEmpty() && !sign.getSign_desc().isEmpty()) {
+    public void registerSign(Sign sign, MultipartFile imageFile, MultipartFile videoFile) throws Exception {  //등록할 수어를 db에 저장
+        if (videoFile != null && !videoFile.isEmpty() && imageFile != null && !imageFile.isEmpty() && !sign.getTitle().isEmpty() && !sign.getSign_desc().isEmpty()) {
             if(sign.getFilepath() != null)
                 deleteFile(signRepository.findById(sign.getId()).get().getFilepath());
+            if(sign.getSu_path() != null)
+                deleteFile(signRepository.findById(sign.getId()).get().getSu_path());
 
             String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";  //파일 저장 경로
 
             UUID uuid = UUID.randomUUID();  //파일 이름에 붙일 랜덤 이름 생성
 
-            String fileName = uuid + "_" + file.getOriginalFilename();  //랜덤 이름과 원래 파일 이름을 이어서 저장될 파일 이름 생성
+            String fileName = uuid + "_" + videoFile.getOriginalFilename();  //랜덤 이름과 원래 파일 이름을 이어서 저장될 파일 이름 생성
 
             File saveFile = new File(projectPath, fileName);
 
-            file.transferTo(saveFile);
+            videoFile.transferTo(saveFile);
+
+            String suName = uuid + "_" + imageFile.getOriginalFilename();  //랜덤 이름과 원래 파일 이름을 이어서 저장될 파일 이름 생성
+
+            File saveSuFile = new File(projectPath, suName);
+
+            imageFile.transferTo(saveSuFile);
 
             sign.setFilename(fileName);
             sign.setFilepath("/files/" + fileName);
+            sign.setSu_name(suName);
+            sign.setSu_path("/files/" + suName);
             signRepository.save(sign);
         }
 

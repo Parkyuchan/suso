@@ -23,4 +23,12 @@ public class Sign {
     private String filename;
 
     private String filepath;
+
+    private String pum_desc;
+
+    private String su_name;
+
+    private String su_path;
+
+    private String exam;
 }

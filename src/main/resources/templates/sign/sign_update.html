@@ -5,164 +5,97 @@
   <title>수어 수정페이지</title>
   <style>
     @font-face {
-            font-family: 'HakgyoansimBareondotumB';
-            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimBareondotumB.woff2') format('woff2');
-            font-weight: 700;
-            font-style: normal;
-        }
+        font-family: 'HakgyoansimBareondotumB';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimBareondotumB.woff2') format('woff2');
+        font-weight: 700;
+        font-style: normal;
+    }
 
-        body {
-            font-family: 'HakgyoansimBareondotumB', sans-serif;
-                margin: 0;
-                    height: 100vh; /* 전체 뷰포트 높이 */
-                    display: flex;
-            align-items: center; /* 세로 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
-        }
+    body {
+        font-family: 'HakgyoansimBareondotumB', sans-serif;
+        margin: 0;
+        height: 100vh; /* 전체 뷰포트 높이 */
+        display: flex;
+        align-items: center; /* 세로 중앙 정렬 */
+        justify-content: center; /* 수평 중앙 정렬 */
+    }
 
-        .layout {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            width: 80%;;
-            margin: 0 auto;
-        }
+    .layout {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        width: 80%;
+        margin: 0 auto;
+    }
 
-        .header h1 {
-            color: #0056b3; /* 헤더의 텍스트 색상 */
-            text-align: center; /* 텍스트를 중앙 정렬 */
-            font-size: 36px; /* 텍스트의 크기 */
-            margin-top: 20px; /* 상단 여백 */
-            margin-bottom: 20px; /* 하단 여백 */
-            font-weight: bold; /* 폰트 두께 */
-        }
+    .header h1 {
+        color: #0056b3; /* 헤더의 텍스트 색상 */
+        text-align: center; /* 텍스트를 중앙 정렬 */
+        font-size: 36px; /* 텍스트의 크기 */
+        margin-top: 20px; /* 상단 여백 */
+        margin-bottom: 20px; /* 하단 여백 */
+        font-weight: bold; /* 폰트 두께 */
+    }
 
+    .layout input, .layout textarea, .layout button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5%;
+        box-sizing: border-box;
+        border: 2px solid #ddd;
+        border-radius: 4px;
+    }
 
-
-        .layout input, .layout textarea, .layout button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5%;
-            box-sizing: border-box;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-        }
-
-        .layout textarea {
-    width: 100%;
-    margin-top: 5%;
+    .layout textarea {
+        width: 100%;
+        margin-top: 5%;
         margin-bottom: 20px; /* 하단 여백 추가 */
-    height: 500px; /* 높이를 500px로 설정 */
-    padding: 15px; /* 입력 경험을 개선하기 위한 패딩 추가 */
-    box-sizing: border-box;
-    border: 2px solid #ddd;
-    border-radius: 4px;
-    resize: none; /* 사용자가 크기를 조절하지 못하도록 설정 */
-}
-.layout input::placeholder, .layout textarea::placeholder {
-            font-family: 'HakgyoansimBareondotumB', sans-serif;
+        height: 500px; /* 높이를 500px로 설정 */
+        padding: 15px; /* 입력 경험을 개선하기 위한 패딩 추가 */
+        box-sizing: border-box;
+        border: 2px solid #ddd;
+        border-radius: 4px;
+        resize: none; /* 사용자가 크기를 조절하지 못하도록 설정 */
+    }
 
-    font-size: 30px; /* 폰트 크기를 30px로 설정 */
-}
+    .layout input::placeholder, .layout textarea::placeholder {
+        font-family: 'HakgyoansimBareondotumB', sans-serif;
+        font-size: 30px; /* 폰트 크기를 30px로 설정 */
+    }
 
+    .layout button {
+        background-color: #0056b3;
+        color: white;
+        font-size: 30px;
+        font-family: 'HakgyoansimBareondotumB', sans-serif;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
 
-        .layout button {
-            background-color: #0056b3;
-            color: white;
-            font-size: 30px;
-            font-family: 'HakgyoansimBareondotumB', sans-serif;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+    .layout button:hover {
+        background-color: #004494;
+    }
 
-        .layout button:hover {
-            background-color: #004494;
-        }
+    .file-upload {
+        margin-top: 5%;
+    }
 
     .file-upload .file-button {
-    background-color: #0056b3;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-s<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>수어 번역</title>
-</head>
-<body>
-<video id="video" width="100%" height="100%" autoplay></video>
+        background-color: #0056b3;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        display: inline-block;
+    }
 
-<script>
-        const video = document.getElementById('video');
-        let mediaRecorder;
-        let chunks = [];
-
-        // 웹캠 비디오 스트림 가져오기
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(stream => {
-                video.srcObject = stream;
-                mediaRecorder = new MediaRecorder(stream);
-                mediaRecorder.ondataavailable = handleDataAvailable;
-            })
-            .catch(err => {
-                console.error('Error accessing webcam:', err);
-            });
-    </script>
-</body>
-</html>ize: 16px;
-    display: inline-block;
-}
-
-.file-upload .file-name {
-    margin-left: 10px;
-    font-size: 16px;
-}
-
-.layout button {
-    background-color: #0056b3;
-    color: white;
-    font-size: 30px;
-    font-family: 'HakgyoansimBareondotumB', sans-serif;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.layout button:hover {
-    background-color: #004494;
-}
-.file-upload .file-button {
-    background-color: #0056b3;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    display: inline-block;
-}
-
-.file-upload .file-name {
-    margin-left: 10px;
-    font-size: 16px;
-}
-
-.layout button {
-    background-color: #0056b3;
-    color: white;
-    font-size: 30px;
-    font-family: 'HakgyoansimBareondotumB', sans-serif;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.layout button:hover {
-    background-color: #004494;
-}
+    .file-upload .file-name {
+        margin-left: 10px;
+        font-size: 16px;
+    }
   </style>
 </head>
 <body>
@@ -170,17 +103,36 @@
   <div class="header">
     <h1>수어 사전 수정하기</h1>
   </div>
-  <form sec:authorize="hasRole('ADMIN')" th:action="@{/sign/update/{id}(id = ${sign.id})}" method="post" enctype="multipart/form-data">
+  <form sec:authorize="hasRole('ADMIN')" th:action="@{/sign/update/{id}(id=${sign.id})}" method="post" enctype="multipart/form-data">
     <input name="title" type="text" th:value="${sign.title}" placeholder="수어 사전의 정답을 입력하세요">
     <textarea name="sign_desc" th:value="${sign.sign_desc}" placeholder="수어 사전의 설명을 입력하세요"></textarea>
+    <input name="pum_desc" type="text" th:value="${sign.pum_desc}" placeholder="품사를 입력하세요">\
     <label class="file-upload">
-      <input type="file" name="file" accept="video/*" style="display:none;" onchange="updateFileName(this)">
-      <span class="file-button">파일 선택</span>
+      <input type="file" name="imageFile" accept="image/*" style="display:none;" onchange="updateFileName(this, 'image')">
+      <span class="file-button">이미지 파일 선택</span>
       <span class="file-name">선택된 파일 없음</span>
     </label>
+    <input name="exam" type="text" th:value="${sign.exam}" placeholder="용례를 입력하세요">
+    <label class="file-upload">
+      <input type="file" name="videoFile" accept="video/*" style="display:none;" onchange="updateFileName(this, 'video')">
+      <span class="file-button">비디오 파일 선택</span>
+      <span class="file-name">선택된 파일 없음</span>
+    </label>
+
     <button type="submit">수어 사전 수정</button>
   </form>
 </div>
 
+<script>
+  function updateFileName(fileInput, fileType) {
+      var fileNameDisplay = fileInput.nextElementSibling.nextElementSibling;
+      if (fileInput.files.length > 0) {
+          var fileName = fileInput.files[0].name;
+          fileNameDisplay.textContent = fileName;
+      } else {
+          fileNameDisplay.textContent = '선택된 파일 없음';
+      }
+  }
+</script>
 </body>
 </html>

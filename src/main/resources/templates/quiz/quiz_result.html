@@ -199,14 +199,10 @@
                 const rowCount = table.rows.length;
                 const pageCount = Math.ceil(rowCount / rowsPerPage);
 
-                pagination.innerHTML = `<button onclick="changePage(-1)">이전</button>
+                pagination.innerHTML = `<button onclick="previousPage()" ${currentPage === 1 ? 'disabled' : ''}>이전</button>
                                         <span id="pageNumber">${currentPage}</span>
-                                        <button onclick="changePage(1)">다음</button>`;
+                                        <button onclick="nextPage()" ${currentPage === pageCount ? 'disabled' : ''}>다음</button>`;
                 document.querySelector('#pageNumber').textContent = currentPage;
-
-                // Disable buttons if necessary
-                pagination.children[0].disabled = currentPage === 1;
-                pagination.children[2].disabled = currentPage === pageCount;
             }
 
             function displayRows() {
@@ -222,17 +218,25 @@
                 renderPagination();
             }
 
-            window.changePage = function(step) {
+            window.previousPage = function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    displayRows();
+                }
+            }
+
+            window.nextPage = function() {
                 const rowCount = table.rows.length;
                 const pageCount = Math.ceil(rowCount / rowsPerPage);
-                currentPage += step;
-                if (currentPage < 1) currentPage = 1;
-                else if (currentPage > pageCount) currentPage = pageCount;
-                displayRows();
+                if (currentPage < pageCount) {
+                    currentPage++;
+                    displayRows();
+                }
             }
 
             displayRows();
         });
+
     </script>
 </head>
 <body>
@@ -245,13 +249,15 @@
         <thead>
         <tr>
             <th>퀴즈 번호</th>
-            <th>결과</th>
+            <th>정답 개수</th>
+            <th>오답 개수</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="result : ${results}">
             <td th:text="${result.quiz.quiz_id}"></td>
-            <td th:text="${result.correct ? '정답' : '오답'}"></td>
+            <td th:text="${result.correct_count}"></td>
+            <td th:text="${result.wrong_count}"></td>
         </tr>
         </tbody>
     </table>
