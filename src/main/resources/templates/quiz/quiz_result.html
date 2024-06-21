@@ -251,6 +251,7 @@
             <th>퀴즈 번호</th>
             <th>정답 개수</th>
             <th>오답 개수</th>
+            <th>다시 풀기</th>
         </tr>
         </thead>
         <tbody>
@@ -258,6 +259,9 @@
             <td th:text="${result.quiz.quiz_id}"></td>
             <td th:text="${result.correct_count}"></td>
             <td th:text="${result.wrong_count}"></td>
+            <td>
+            <a th:href="@{/quiz/{id}(id=${result.quiz.quiz_id})}">✍️</a>
+            </td>
         </tr>
         </tbody>
     </table>
