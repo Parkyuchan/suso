@@ -24,14 +24,14 @@
             <!-- 첫 번째 행 -->
             <div class="row">
                 <div class="video" th:each="sign, iterStat : ${mainVideo}" th:if="${iterStat.index < 2}">
-                    <video th:src="@{${sign.filepath}}" controls></video>
+                    <video th:src="@{${sign.filepath}}" muted autoplay loop></video>
                     <p th:text="${sign.title}"></p>
                 </div>
             </div>
             <!-- 두 번째 행 -->
             <div class="row">
                 <div class="video" th:each="sign, iterStat : ${mainVideo}" th:if="${iterStat.index >= 2}">
-                    <video th:src="@{${sign.filepath}}" controls></video>
+                    <video th:src="@{${sign.filepath}}" muted autoplay loop></video>
                     <p th:text="${sign.title}"></p>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                 </div>
             </div>
         </a>
-        <a sec:authorize="isAuthenticated()" th:href="@{/sign/translate}" class="resource">
+        <a sec:authorize="isAuthenticated()" href="http://127.0.0.1:8000/" class="resource">
             <img src="/image/transfer.png" alt="수어 번역 기능">
             <div class="text">
                 <p>수어 번역</p><br>
@@ -168,82 +168,65 @@
         padding: 0;
     }
 
-    body {
-        font-family: 'BMJUA', sans-serif;
-        background-image: url('/image/main.png'); /* Add this line */
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover; /* Ensures the background covers the entire body */
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        margin: 0;
+<!--    body {-->
+<!--        font-family: 'BMJUA', sans-serif;-->
+<!--        background-image: url('/image/main.png'); /* Add this line */-->
+<!--        background-position: center;-->
+<!--        background-repeat: no-repeat;-->
+<!--        background-size: cover; /* Ensures the background covers the entire body */-->
+<!--        justify-content: center;-->
+<!--        align-items: center;-->
+<!--        display: flex;-->
+<!--        margin: 0;-->
+<!--    }-->
+
+     body {
+            background-image: url('/image/main.png'); /* Add this line */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: 'HakgyoansimBareondotumB', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow-x: hidden; /* 가로 스크롤 방지 */
+            overflow-y: auto; /* 세로 스크롤 가능 */
     }
 
     .main {
-        width: 90%;
+
         max-width: 90%;
-        border-radius: 10px;
-        overflow: hidden;
         text-align: center;
-        display: flex;
-        flex-direction: column;
-        /*justify-content: space-between;*/
         min-height: 100%;
-        padding-top: 100px; /* Add top padding to push the content below the fixed header */
+        padding-top: 5%; /* 헤더 높이에 따라 조정 가능 */
     }
 
     .fixed-title {
         font-family: 'BMJUA', sans-serif;
         color: black;
         text-align: center;
-        padding: 8%;
-        font-size: 60px;
+        font-size: 6VW;
+        width: 100%;
+        padding-bottom: 5%;
+        text-align: center;
     }
-
 
 
     .header p {
         display: inline;
-        font-size: 60px;
+        font-size: 6VW;
         color: #81D4FA;
-    }
-
-    .search-section {
-        background-color: none;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-    }
-
-    .search-section input[type="text"] {
-        flex-grow: 1;
-        border: 2px solid #00BFFF;
-        padding: 20px;
-        border-radius: 20px;
-        font-family: 'HakgyoansimBareondotumB', sans-serif;
-        font-size: 30px;
-    }
-
-    .search-section button {
-        background-color: #00BFFF;
-        color: white;
-        border: none;
-        border-radius: 20px;
-        font-family: 'HakgyoansimBareondotumB', sans-serif;
-        padding: 20px 20px;
-        font-size: 30px;
-        margin-left: 10px;
-        cursor: pointer;
     }
 
     .todayword {
         margin: 0 auto;
+        padding:1%;
         background-color: white;
         width: 60%;
-        font-size: 30px;
+        margin-bottom: 3%;
         font-family: 'HakgyoansimBareondotumB', sans-serif;  /* 전체 페이지에 적용 */
         border-radius: 20px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
@@ -254,8 +237,9 @@
         background-color: white;
         flex-direction: column; /* Change to column for rows */
         border-radius: 20px;
-        padding: 5%;
-        margin-bottom: 10%;
+        padding: 2%;
+        margin-bottom: 5%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
     }
 
     .row {
@@ -265,35 +249,42 @@
 
     .video {
         text-align: center;
-        width: 48%; /* Adjust width as necessary */
+        width: 48%;
     }
 
     .video video {
-        width: 70%;
+        width: 90%;
         border-radius: 10px;
     }
 
     .video p {
         color: #333;
-        font-size: 40px;
+        font-size: 4vw;
     }
 
+
+
     .resource {
-        margin-bottom: 7%;  /* 수직 간격을 30px로 증가 */
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        text-align: left;
-        display: flex;
-        align-items: center;
-        transition: all 0.3s ease; /* 부드러운 확장을 위한 전환 효과 */
-    }
+    margin-bottom: 7%;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease; /* 부드러운 확장을 위한 전환 효과 */
+}
+
+.resource:last-of-type {
+    margin-bottom: 25%; /* 마지막 수어 퀴즈 버튼에 margin-bottom 추가 */
+}
+
 
     .resource img {
         width: 17%;
         height: auto;
-        margin-right: 20px;
+        margin-right: 3%;
     }
 
     .resource .text {
@@ -303,12 +294,12 @@
 
     .resource p {
         margin: 5px 0;
-        font-size: 40px;
+        font-size: 4vw;
         color: #333;
     }
 
     .resource .description {
-        font-size: 30px;
+        font-size: 3vw;
         color: #666;
     }
 
@@ -336,20 +327,20 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        font-size: 12px;
+        font-size: 5vw;
         color: #333;
         cursor: pointer;
         text-decoration: none;
     }
 
     .navbar a i {
-        font-size: 40px;
+        font-size: 4vw;
         margin-bottom: 20%;
     }
 
     .navbar a span {
         display: block;
-        font-size: 30px;
+        font-size: 3vw;
     }
 
     .navbar a:hover {

@@ -42,9 +42,6 @@
   </div>
 </div>
 
-
-
-
 <div class="navbar">
   <a th:href="@{/logout}" class="footer-link">
     <i class="fas fa-sign-out-alt"></i><span>Log Out</span>
@@ -77,242 +74,220 @@
     }
 
     html, body {
-             height: 100%;
-             margin: 0;
-             padding: 0;
-             background-color: white; /* 배경색을 회색으로 설정 */
-         }
-
-        body {
-            font-family: 'HakgyoansimBareondotumB', sans-serif;  /* 전체 페이지에 적용 */
-            display: grid;
-            grid-template-rows: 100px auto; /* 첫 번째 행을 헤더의 높이로 설정 */
-            height: 100vh;
-            margin: 0;
-        }
-
-        .layout {
-            grid-row: 2 / 3; /* 두 번째 행에 본문 배치 */
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-        }
-
-        .header {
-            grid-row: 1 / 2; /* 첫 번째 행에 헤더 배치 */
-            position: sticky;
-            top: 0; /* 상단에 고정 */
-            width: 100%;
-            z-index: 1000;
-            background-color: white;
-        }
-
-         .header p {
-             display: inline;
-             font-size: 60px;
-             color: #81D4FA;
-         }
-
-         .fixed-title{
-                     font-family: 'BMJUA', sans-serif;
-                     color: black;
-                     text-align: center;
-                     padding: 5% 0;
-                     font-size: 60px;
-          }
-
-
-     .navbar {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      background-color: #f8f8f8;
-      padding: 20px 0;
-      border-top: 1px solid #ddd;
-      width: 100%;
-      border-radius: 10px;
-      position: fixed; /* 고정 위치 */
-      bottom: 0; /* 하단 */
-      left: 0; /* 왼쪽 경계 */
-      right: 0; /* 오른쪽 경계 */
-      z-index: 1000; /* 다른 요소들 위에 나타나도록 z-index 설정 */
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: white;
     }
+
+    body {
+        font-family: 'HakgyoansimBareondotumB', sans-serif;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow-x: hidden; /* 가로 스크롤 방지 */
+        overflow-y: auto; /* 세로 스크롤 가능 */
+    }
+
+    .layout {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 80px; /* navbar와의 간격을 위해 하단 패딩 추가 */
+    }
+
+    .header {
+        width: 100%;
+        background-color: white;
+        z-index: 1000;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+    }
+
+    .header p {
+        display: inline;
+        font-size: 60px;
+        color: #81D4FA;
+    }
+
+    .fixed-title {
+        font-family: 'BMJUA', sans-serif;
+        color: black;
+        text-align: center;
+        padding: 5% 0;
+        font-size: 60px;
+    }
+
 
     .quiz h1 {
-      display: inline-block;
-      padding: 10px 20px;
-      width:30%;
-      background-color: #fff;
-      font-size:40px;
-      border-radius: 20px;
-      box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
+        display: inline-block;
+        padding: 10px 20px;
+        width: 30%;
+        background-color: #fff;
+        font-size: 40px;
+        border-radius: 20px;
+        box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
     }
+
     .back-button {
-       background-color: #fff;
-      padding: 10px 20px; /* 패딩 */
-      font-size: 35px; /* 폰트 크기 */
-      border-radius: 10px; /* 둥근 모서리 */
-      border: 1px solid #ccc; /* 테두리 */
-      cursor: pointer; /* 커서 모양 변경 */
-      margin-right:2%;
+        background-color: #fff;
+        padding: 10px 20px;
+        font-size: 35px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        margin-right: 2%;
     }
 
     .back-button:hover {
-      background-color: #e0e0e0; /* 호버 시 배경색 변경 */
+        background-color: #e0e0e0;
     }
 
     .quiz {
-      text-align: center;
+        text-align: center;
     }
 
-
-
     .quiz h2 {
-    font-family: 'HakgyoansimBareondotumB', sans-serif;
-    margin-left: 10px; /* 레이블과 라디오 버튼 사이 여백 설정 */
-    font-size: 35px; /* h2 폰트 크기 설정 */
-    margin-top: 20px; /* 위쪽 여백 설정 */
-}
+        font-family: 'HakgyoansimBareondotumB', sans-serif;
+        margin-left: 10px;
+        font-size: 35px;
+        margin-top: 20px;
+    }
 
-.quiz form {
-  text-align: left; /* 폼 전체를 왼쪽 정렬 */
-  display: inline-block; /* 중앙 정렬을 유지하기 위해 폼을 인라인 블록으로 설정 */
-  width: 80%; /* 폼의 너비를 조정 */
+    .quiz form {
+        text-align: left;
+        display: inline-block;
+        width: 80%;
+    }
 
-}
+    .quiz form label {
+        font-size: 40px;
+    }
 
+    .quiz form input[type="submit"] {
+        background-color: #81D4FA;
+        color: white;
+        font-size: 30px;
+        padding: 20px 20px;
+        border: none;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        display: block;
+        margin-left: auto;
+        font-family: 'HakgyoansimBareondotumB', sans-serif;
+    }
 
-.quiz form label {
-  font-size: 40px; /* 선택지 폰트 크기 설정 */
-}
+    .problem {
+        width: 100%;
+        height: auto;
+        background-color: white;
+        margin: 0 auto;
+        padding-top: 5%;
+        padding-bottom: 5%;
+    }
 
+    .choice {
+        display: block;
+        width: 100%;
+        padding: 25px;
+        margin-bottom: 10px;
+        background-color: #FFFFFF;
+        border: 2px solid #CCCCCC;
+        border-radius: 10px;
+        text-align: center;
+        cursor: pointer;
+        font-size: 40px;
+    }
 
-.quiz form input[type="submit"] {
-  background-color: #81D4FA; /* 배경색 설정 */
-  color: white; /* 폰트 색상 하얀색으로 설정 */
-  font-size: 30px; /* 제출 버튼 폰트 크기 설정 */
-  padding: 20px 20px; /* 제출 버튼 여백 설정 */
-  border: none; /* 실선 없애기 */
-  border-radius: 20px; /* 둥글게 설정 */
-  font-weight: bold; /* 폰트 굵기 올리기 */
-  cursor: pointer; /* 마우스 포인터를 손가락 모양으로 변경 */
-  display: block; /* 블록 요소로 변경 */
-  margin-left: auto; /* 오른쪽 정렬 */
-  font-family: 'HakgyoansimBareondotumB', sans-serif;  /* 전체 페이지에 적용 */
-}
-    .problem{
-      width:100%;
-      height:auto;
-      background-color:white;
-      margin: 0 auto;
-      padding-top:5%;
-     padding-bottom:5%;
-      }
+    .choice.selected {
+        border-color: #81D4FA;
+        background-color: #81D4FA;
+        color: white;
+    }
 
-.choice {
-  display: block;
-  width: 100%;
-  padding: 25px;
-  margin-bottom: 10px;
-  background-color: #FFFFFF;
-  border: 2px solid #CCCCCC;
-  border-radius: 10px;
-  text-align: center;
-  cursor: pointer;
-  font-size: 40px;
-}
+    .choice:hover, .choice:focus-within {
+        background-color: #81D4FA;
+        border-color: #81D4FA;
+        color: white;
+    }
 
-.choice.selected {
-  border-color: #81D4FA; /* 선택된 선택지의 테두리 색상 변경 */
-  background-color: #81D4FA; /* 선택된 선택지의 배경 색상 변경 */
-  color: white; /* 선택된 선택지의 글자 색상 변경 */
-}
-
-
-.choice:hover, .choice:focus-within {
-  background-color: #81D4FA;
-  border-color: #81D4FA;
-  color: white;
-}
-
-
-
-     .video-size {
-      width: 90%; /* 너비를 80%로 설정 */
-      display: block;
-      margin: 0 auto; /* 중앙 정렬 */
-      margin-bottom:5%;
+    .video-size {
+        width: 90%;
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 5%;
     }
 
     .info-panel {
-  background-color: #ffffff; /* 밝은 배경색 설정 */
-  border-radius: 15px; /* 모서리를 둥글게 처리 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 추가 */
-  padding: 30px; /* 내부 여백 추가 */
-  margin: 20px; /* 외부 여백 추가, 중앙 정렬을 위해 위 아래 여백 제공 */
-  text-align: left; /* 텍스트 왼쪽 정렬 */
-  width: 80%; /* 폭 설정 */
-  margin-top: 20px; /* 상단 여백 추가 */
-  margin-bottom: 100px; /* 하단 여백 추가 */
-}
+        background-color: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin: 20px;
+        text-align: left;
+        width: 80%;
+        margin-top: 20px;
+        margin-bottom: 100px;
+    }
 
-.info-panel h2 {
-  color: #333; /* 제목 색상 설정 */
-  font-size: 35px; /* 제목 폰트 크기 */
-  margin-bottom: 15px; /* 제목 아래 마진 */
-  font-weight: bold; /* 폰트 굵기 */
-}
+    .info-panel h2 {
+        color: #333;
+        font-size: 35px;
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
 
-.info-panel p {
-  color: #666; /* 본문 텍스트 색상 설정 */
-  font-size: 30px; /* 본문 폰트 크기 */
-  line-height: 1.6; /* 줄 간격 */
-  margin-bottom: 10px; /* 단락 간 마진 */
-}
-
-
+    .info-panel p {
+        color: #666;
+        font-size: 30px;
+        line-height: 1.6;
+        margin-bottom: 10px;
+    }
 
     .navbar {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background-color: #f8f8f8;
-  padding: 20px 0;
-  border-top: 1px solid #ddd;
-  width: 100%;
-  border-radius: 10px;
-  position: fixed; /* 고정 위치 */
-  bottom: 0; /* 하단 */
-  left: 0; /* 왼쪽 경계 */
-  right: 0; /* 오른쪽 경계 */
-  z-index: 1000; /* 다른 요소들 위에 나타나도록 z-index 설정 */
-}
+              display: flex;
+              justify-content: space-around;
+              align-items: center;
+              background-color: #f8f8f8;
+              padding: 20px 0;
+              border-top: 1px solid #ddd;
+              width: 100%;
+              border-radius: 10px;
+              position: fixed; /* 고정 위치 */
+              bottom: 0; /* 하단 */
+              left: 0; /* 왼쪽 경계 */
+              right: 0; /* 오른쪽 경계 */
+              z-index: 1100; /* 다른 요소들 위에 나타나도록 z-index 설정 */
+        }
 
-    .navbar a {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: #333;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .navbar a i {
-      font-size: 40px;
-      margin-bottom: 20%;
-    }
-    .navbar a span {
-      display: block;
-      font-size: 30px;
-    }
-    .navbar a:hover {
-      color: #007bff;
-    }
+        .navbar a {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              font-size: 4vw;
+              color: #333;
+              cursor: pointer;
+              text-decoration: none;
+        }
 
+        .navbar a i {
+              font-size: 4vw;
+              margin-bottom: 20%;
+        }
 
+        .navbar a span {
+              display: block;
+              font-size: 3vw;
+        }
+
+        .navbar a:hover {
+              color: #007bff;
+        }
 </style>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -325,5 +300,4 @@
     });
   });
 </script>
-
 </html>

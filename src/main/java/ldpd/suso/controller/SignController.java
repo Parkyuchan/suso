@@ -32,7 +32,7 @@ public class SignController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")  //ADMIN권한을 가진 사용자만 메소드 접근 가능
     @PostMapping("/admin/sign") //수어 등록에 대한 Post 방식 프로토콜 메소드
-    public String registerSign(Sign sign, Model model, @RequestParam("imageFile") MultipartFile imageFile,
+    public String registerSign(Sign sign, Model model,
                                @RequestParam("videoFile") MultipartFile videoFile) throws Exception {
 
         final long MAX_VIDEO_LENGTH = 100 * 1024 * 1024;
@@ -43,13 +43,13 @@ public class SignController {
             return "message";
         }
 
-        if(videoFile.isEmpty() || sign.getTitle().isEmpty() || imageFile.isEmpty() || sign.getSign_desc().isEmpty()){
+        if(videoFile.isEmpty() || sign.getTitle().isEmpty() || sign.getSign_desc().isEmpty()){
             model.addAttribute("message", "수어명, 수어 설명, 파일은 필수 내용입니다.");
             model.addAttribute("searchUrl", "/admin/sign");
             return "message";
         }
 
-        signService.registerSign(sign, imageFile, videoFile);
+        signService.registerSign(sign, videoFile);
 
         Quiz quiz = new Quiz(sign);
         quizService.registerQuiz(quiz);
@@ -124,30 +124,26 @@ public class SignController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")  //ADMIN권한을 가진 사용자만 메소드 접근 가능
     @PostMapping("/sign/update/{id}")   //수어 글 수정에 대한 Post 방식 프로토콜 메소드
-    public String signUpdate(@PathVariable("id") Integer id, Sign sign, Model model, @RequestParam("imageFile") MultipartFile imageFile,
+    public String signUpdate(@PathVariable("id") Integer id, Sign sign, Model model,
                              @RequestParam("videoFile") MultipartFile videoFile) throws Exception{
 
         Sign signTemp = signService.signDetail(id);   //기존에 담긴 board 데이터가 boardTemp로 들어옴
 
         signService.deleteFile(signTemp.getFilepath());
-        signService.deleteFile(signTemp.getSu_path());
 
         signTemp.setTitle(sign.getTitle());
         signTemp.setSign_desc(sign.getSign_desc());
         signTemp.setPum_desc(sign.getPum_desc());
         signTemp.setFilename(sign.getFilename());
         signTemp.setFilepath(sign.getFilepath());
-        signTemp.setSu_name(sign.getSu_name());
-        signTemp.setSu_path(sign.getSu_path());
-        signTemp.setExam(sign.getExam());
 
-        if(imageFile.isEmpty() || videoFile.isEmpty() || sign.getTitle().isEmpty() || sign.getSign_desc().isEmpty()){
+        if(videoFile.isEmpty() || sign.getTitle().isEmpty() || sign.getSign_desc().isEmpty()){
             model.addAttribute("message", "수어명, 수어 설명, 파일은 필수 내용입니다.");
             model.addAttribute("searchUrl", "/sign/update/" + id);
             return "message";
         }
 
-        signService.registerSign(signTemp, imageFile, videoFile);  //수정이 완료됐으므로 write를 이용해서 다시 쓰기
+        signService.registerSign(signTemp, videoFile);  //수정이 완료됐으므로 write를 이용해서 다시 쓰기
 
 
         model.addAttribute("message", "수어 사전 수정이 완료됐습니다.");

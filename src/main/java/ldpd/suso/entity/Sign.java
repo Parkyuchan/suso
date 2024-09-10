@@ -26,9 +26,5 @@ public class Sign {
 
     private String pum_desc;
 
-    private String su_name;
-
-    private String su_path;
-
-    private String exam;
 }
+

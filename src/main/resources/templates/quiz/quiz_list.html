@@ -11,6 +11,7 @@
             font-weight: normal;
             font-style: normal;
         }
+
         @font-face {
             font-family: 'HakgyoansimBareondotumB';
             src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimBareondotumB.woff2') format('woff2');
@@ -18,57 +19,52 @@
             font-style: normal;
         }
 
-       html, body {
-             height: 100%;
-             margin: 0;
-             padding: 0;
-             background-color: white; /* 배경색을 회색으로 설정 */
-         }
-
         body {
-            font-family: 'HakgyoansimBareondotumB', sans-serif;  /* 전체 페이지에 적용 */
-            display: grid;
-            grid-template-rows: 100px auto; /* 첫 번째 행을 헤더의 높이로 설정 */
-            height: 100vh;
+            font-family: 'HakgyoansimBareondotumB', sans-serif;
+            display: flex;
+            flex-direction: column;
             margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow-x: hidden; /* 가로 스크롤 방지 */
         }
 
         .layout {
-            grid-row: 2 / 3; /* 두 번째 행에 본문 배치 */
-            width: 100%;
+            flex: 1; /* 레이아웃이 남은 공간을 차지하도록 설정 */
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-y: auto; /* 세로 스크롤 가능 */
+            padding-bottom: 80px; /* navbar가 겹치지 않도록 하단에 여백 추가 */
         }
 
         .header {
-            grid-row: 1 / 2; /* 첫 번째 행에 헤더 배치 */
-            position: sticky;
-            top: 0; /* 상단에 고정 */
             width: 100%;
-            z-index: 1000;
             background-color: white;
+            padding: 10px 0;
+            z-index: 1000;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-         .header p {
-             display: inline;
-             font-size: 60px;
-             color: #81D4FA;
-         }
+        .header p {
+            display: inline;
+            font-size: 7vw;
+            color: #81D4FA;
+        }
 
-         .fixed-title{
-                     font-family: 'BMJUA', sans-serif;
-                     color: black;
-                     text-align: center;
-                     padding: 5% 0;
-                     font-size: 60px;
-          }
-
+        .fixed-title {
+            font-family: 'BMJUA', sans-serif;
+            color: black;
+            text-align: center;
+            padding: 5% 0;
+            font-size: 7vw;
+        }
 
         .quiz-image {
-            display: block; /* 이미지를 블록 요소로 설정 */
-            margin: 20px auto 40px; /* 위쪽 20px, 좌우 자동, 아래쪽 40px 마진 적용 */
-            width: 60%; /* 이미지의 너비를 90%로 설정 */
+            display: block;
+            margin: 20px auto;
+            width: 50%;
         }
 
         .quiz-table {
@@ -80,18 +76,24 @@
 
         .quiz-table th, .quiz-table td {
             border: 1px solid #ddd;
-            padding: 15px;
+            padding: 30px 15px; /* 세로 높이를 높이기 위해 padding 조정 */
             text-align: center;
-            font-size: 40px;
+            font-size: 4vw;
         }
 
+        .quiz-table td {
+            min-height: 80px; /* 최소 높이를 설정하여 표의 높이를 늘림 */
+            vertical-align: middle; /* 내용이 세로로 중앙 정렬되도록 설정 */
+        }
+
+
         .quiz-table th:first-child, .quiz-table td:first-child {
-            width: 100px;
+            width: 20%;
         }
 
         .quiz-table th:last-child, .quiz-table td:last-child {
-            width: 150px; /* 카테고리 열의 너비를 150픽셀로 설정 */
-            text-align: center; /* 텍스트 중앙 정렬 */
+            width: 150px;
+            text-align: center;
         }
 
         .quiz-table th {
@@ -110,58 +112,40 @@
             text-decoration: underline;
         }
 
-        /* 데이터 행에만 패딩 적용 */
-        .quiz-table tbody tr td {
-            padding: 30px; /* 원하는 패딩 값 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
         }
 
-        .info-panel h2 {
-            font-size: 35px; /* 제목의 폰트 크기 조정 */
-            margin-bottom: 10px;
+        .pagination button {
+            border: none;
+            background-color: #81D4FA;
+            color: white;
+            font-size: 3vw;
+            padding: 10px 20px;
+            margin: 0 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .pagination button:hover {
+            background-color: #00BFFF;
+            transform: translateY(-2px);
+        }
+
+        .pagination button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .pagination span {
+            font-size: 5vw;
+            text-decoration: underline;
             color: #333;
         }
-
-        .info-panel p {
-            font-size: 28px; /* 단락의 폰트 크기 조정 */
-            color: #666;
-        }
-
-        .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 30px 0;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.pagination button {
-    border: none;
-    background-color: #81D4FA; /* Light blue background, matching your header p color */
-    color: white;
-    font-size: 30px;
-    padding: 10px 20px;
-    margin: 0 30px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover effects */
-}
-
-.pagination button:hover {
-    background-color: #00BFFF; /* A darker blue for hover state */
-    transform: translateY(-2px); /* Slight raise effect on hover */
-}
-
-.pagination button:disabled {
-    background-color: #ccc; /* Greyed out button for disabled state */
-    cursor: not-allowed;
-}
-
-.pagination span {
-    font-size: 40px;
-    text-decoration: underline;
-    color: #333; /* Dark grey for contrast */
-}
 
         .navbar {
             display: flex;
@@ -171,12 +155,12 @@
             padding: 20px 0;
             border-top: 1px solid #ddd;
             width: 100%;
-            border-radius: 10px;
-            position: fixed; /* 고정 위치 */
-            bottom: 0; /* 하단 */
-            left: 0; /* 왼쪽 경계 */
-            right: 0; /* 오른쪽 경계 */
-            z-index: 1000; /* 다른 요소들 위에 나타나도록 z-index 설정 */
+            position: sticky;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .navbar a {
@@ -203,32 +187,28 @@
         .navbar a:hover {
             color: #007bff;
         }
-
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const rowsPerPage = 5; // 한 페이지에 표시할 행의 수
-            const rows = document.querySelectorAll('.quiz-table tbody tr'); // 테이블의 모든 행을 선택
-            let currentPage = 1; // 현재 페이지 초기화
-            const totalPage = Math.ceil(rows.length / rowsPerPage); // 전체 페이지 수 계산
+            const rowsPerPage = 5;
+            const rows = document.querySelectorAll('.quiz-table tbody tr');
+            let currentPage = 1;
+            const totalPage = Math.ceil(rows.length / rowsPerPage);
 
             function displayRows() {
                 const start = (currentPage - 1) * rowsPerPage;
                 const end = start + rowsPerPage;
 
-                // 모든 행 숨기기
                 rows.forEach(row => {
                     row.style.display = 'none';
                 });
 
-                // 현재 페이지에 해당하는 행만 표시
                 rows.forEach((row, index) => {
                     if (index >= start && index < end) {
                         row.style.display = '';
                     }
                 });
 
-                // 페이지 번호 업데이트
                 document.getElementById('pageNumber').textContent = currentPage;
             }
 
@@ -246,7 +226,7 @@
                 }
             }
 
-            displayRows(); // 초기 페이지 표시
+            displayRows();
         });
     </script>
 
@@ -284,20 +264,22 @@
         <button onclick="nextPage()">다음</button>
     </div>
 
-    <div class="navbar">
-        <a th:href="@{/logout}" class="footer-link">
-            <i class="fas fa-sign-out-alt"></i><span>Log Out</span>
-        </a>
-        <a th:href="@{/home}" class="footer-link">
-            <i class="fas fa-home"></i><span>Home</span>
-        </a>
-        <a th:href="@{/quiz/result}" class="footer-link">
-            <i class="fas fa-clipboard-list"></i><span>퀴즈 결과</span>
-        </a>
-        <a th:href="@{/user/mypage}" class="footer-link">
-            <i class="fas fa-user"></i><span>My Page</span>
-        </a>
-    </div>
 </div>
+
+<div class="navbar">
+    <a th:href="@{/logout}" class="footer-link">
+        <i class="fas fa-sign-out-alt"></i><span>Log Out</span>
+    </a>
+    <a th:href="@{/home}" class="footer-link">
+        <i class="fas fa-home"></i><span>Home</span>
+    </a>
+    <a th:href="@{/quiz/result}" class="footer-link">
+        <i class="fas fa-clipboard-list"></i><span>퀴즈 결과</span>
+    </a>
+    <a th:href="@{/user/mypage}" class="footer-link">
+        <i class="fas fa-user"></i><span>My Page</span>
+    </a>
+</div>
+
 </body>
 </html>

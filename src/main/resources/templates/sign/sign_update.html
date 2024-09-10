@@ -106,13 +106,7 @@
   <form sec:authorize="hasRole('ADMIN')" th:action="@{/sign/update/{id}(id=${sign.id})}" method="post" enctype="multipart/form-data">
     <input name="title" type="text" th:value="${sign.title}" placeholder="수어 사전의 정답을 입력하세요">
     <textarea name="sign_desc" th:value="${sign.sign_desc}" placeholder="수어 사전의 설명을 입력하세요"></textarea>
-    <input name="pum_desc" type="text" th:value="${sign.pum_desc}" placeholder="품사를 입력하세요">\
-    <label class="file-upload">
-      <input type="file" name="imageFile" accept="image/*" style="display:none;" onchange="updateFileName(this, 'image')">
-      <span class="file-button">이미지 파일 선택</span>
-      <span class="file-name">선택된 파일 없음</span>
-    </label>
-    <input name="exam" type="text" th:value="${sign.exam}" placeholder="용례를 입력하세요">
+    <input name="pum_desc" type="text" th:value="${sign.pum_desc}" placeholder="품사를 입력하세요">
     <label class="file-upload">
       <input type="file" name="videoFile" accept="video/*" style="display:none;" onchange="updateFileName(this, 'video')">
       <span class="file-button">비디오 파일 선택</span>

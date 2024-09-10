@@ -20,59 +20,49 @@
         font-style: normal;
     }
 
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        background-color: #EEEEEE; /* 배경색을 회색으로 설정 */
+   body {
+            background-color: #EEEEEE; /* 배경색을 회색으로 설정 */
+            font-family: 'HakgyoansimBareondotumB', sans-serif;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow-x: hidden; /* 가로 스크롤 방지 */
     }
 
-    body {
-        font-family: 'HakgyoansimBareondotumB';
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        margin: 0;
-        flex-direction: column;
-    }
+  .layout {
+            flex: 1; /* 레이아웃이 남은 공간을 차지하도록 설정 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto; /* 세로 스크롤 가능 */
+            padding-bottom: 20%; /* navbar가 겹치지 않도록 하단에 여백 추가 */
+  }
 
-    .layout {
-      width: 100%;
-      max-width: 100%;
-      padding-top: 120px; /* 헤더 높이만큼 패딩 추가 */
-      padding-bottom: 100px; /* 네비게이션 바 높이만큼 패딩 추가 */
-      box-sizing: border-box; /* 박스 사이징 설정 */
-    }
+  .header {
+            width: 100%;
+            padding: 10px 0;
+            z-index: 1000;
+            text-align: center;
+        }
 
-    .header {
-      color: black;
-      font-size: 70px;
-      display: flex;
-      justify-content: center; /* 내용을 가운데 정렬 */
-      width: 100%; /* 전체 너비를 사용 */
-      font-family: 'BMJUA', sans-serif;
-      position: fixed; /* 고정 위치 */
-      top: 0; /* 상단에 고정 */
-      left: 0; /* 왼쪽 경계 */
-      right: 0; /* 오른쪽 경계 */
-      margin: auto; /* 자동으로 중앙 정렬 */
-      z-index: 1000; /* 다른 요소들 위에 나타나도록 z-index 설정 */
-      background-color: #EEEEEE; /* 배경색 설정 */
-      padding: 10px 0; /* 패딩 설정 */
-      border-bottom: 1px solid #ddd; /* 하단 경계선 추가 */
-    }
+        .header p {
+            display: inline;
+            font-size: 7vw;
+            color: #81D4FA;
+        }
 
-    .header p {
-      font-size: 70px;
-      color: #81D4FA;
-      margin: 0 5px;
-    }
+        .fixed-title {
+            font-family: 'BMJUA', sans-serif;
+            color: black;
+            text-align: center;
+            padding: 5% 0;
+            font-size: 7vw;
+        }
 
     .title {
-      font-size: 60px;
+      font-size: 6vw;
       padding-left: 5%;
       text-align: left; /* 텍스트를 왼쪽 정렬 */
       width: 100%; /* 전체 너비를 사용 */
@@ -84,34 +74,32 @@
     }
 
     .video-container {
-      display: flex;
-      justify-content: center; /* 가로 방향으로 중앙 정렬 */
-      align-items: center; /* 세로 방향으로 중앙 정렬 */
-      width: 100%; /* 컨테이너 너비를 최대로 설정 */
-      padding: 0; /* 패딩 초기화 */
-      margin: 20px auto; /* 상단과 하단 여백 추가, 자동으로 좌우 마진 적용 */
-      box-sizing: border-box; /* 박스 사이징 조정 */
-    }
+  display: flex;
+  justify-content: center; /* 가로로 중앙 정렬 */
+  align-items: center; /* 세로로 중앙 정렬 */
+  width: 100%; /* 컨테이너의 너비를 100%로 설정 */
+  padding: 0; /* 패딩 제거 */
+  box-sizing: border-box;
+}
 
-    video {
-      width: 80%; /* 비디오의 너비 설정 */
-      height: auto; /* 높이 자동 조절 */
-      margin: 0 auto; /* 비디오 마진 자동으로 좌우 적용 */
-    }
-
+video {
+  width: 95%; /* 비디오가 부모의 전체 너비를 차지 */
+  height: auto; /* 비율에 맞춰 높이를 자동 조절 */
+}
     .info {
       width: 100%;
       border-radius: 10px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      margin-top: 20px;
+      margin-top: 5%;
       padding: 20px;
     }
 
     .info-section {
-      width: 90%;
+      width: 85%;
       background-color: #fff;
       padding: 1% 5%;
       margin-bottom: 5%;
+      margin: 0 auto;
     }
 
     .info-section:last-child {
@@ -128,25 +116,6 @@
       font-size: 40px;
     }
 
-    hr {
-      background-color: #grey;
-    }
-
-    .content-container {
-      display: flex;
-      align-items: center; /* 센터 정렬 */
-    }
-
-    .info-image {
-      width: 20%;
-      height: 20%;
-      background-color: red;
-      margin-right: 20px; /* 텍스트와의 간격 */
-    }
-
-    .text-container {
-      flex-grow: 1; /* 남은 공간 모두 사용 */
-    }
 
     .navbar {
       display: flex;
@@ -198,7 +167,7 @@
 <div class="layout">
 
   <div class="header">
-    <p>한</p>수 <p>사</p>전
+    <div class="fixed-title"><p>한</p>수 <p>사</p>전</div>
   </div>
 
   <h1 class="title">한국어 표제어 | <span class="title-highlight" th:text="${sign.title}"></span></h1>
@@ -213,26 +182,12 @@
       <h2 class="info-title">표제어 설명</h2>
       <hr>
       <p class="info-content" th:text="'품사 | ' + ${sign.pum_desc}"></p>
-      <p class="info-content" th:text="${sign.sign_desc}"></p>
-    </div>
-
-    <div class="info-section">
-      <h2 class="info-title">수형 설명</h2>
-      <hr>
-      <div class="content-container">
-        <img th:src="@{${sign.su_path}}" alt="수형 설명 이미지" class="info-image">
-      </div>
-    </div>
-
-    <div class="info-section">
-      <h2 class="info-title">용례</h2>
-      <hr>
-      <p class="info-content" th:text="${sign.exam}">용례 예시 데이터 불러오기</p>
+      <p class="info-content" th:text="'설명 | ' +${sign.sign_desc}"></p>
     </div>
   </div>
 
-  <a sec:authorize="hasRole('ADMIN')" th:href="@{/sign/delete(id = ${sign.id})}">수어 삭제하기</a>
-  <a sec:authorize="hasRole('ADMIN')" th:href="@{/sign/update/{id}(id = ${sign.id})}">수어 수정하기</a>
+  <a sec:authorize="hasRole('ADMIN')" th:href="@{/sign/delete(id = ${sign.id})}" style="font-size : 70px; text-decoration: none;">수어 삭제하기</a>
+  <a sec:authorize="hasRole('ADMIN')" th:href="@{/sign/update/{id}(id = ${sign.id})}" style="font-size : 70px; text-decoration: none;">수어 수정하기</a>
 
   <div th:replace="navbar :: navbar"></div>
 
