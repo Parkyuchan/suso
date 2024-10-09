@@ -1,11 +1,16 @@
 한서대학교 항공소프트웨어공학과 이두박두팀 졸업 프로젝트
 
-주제 : 수어 통역 서비스
+주제 : 농인들과의 소통을 위한 수어 실시간 통역 서비스
+
+사용 Framework : Spring boot, Django, Mediapipe
+사용 Language : Java, Python, HTML, CSS
+사용 DB : MySQL
+사용 OpenAI  모델 : gpt-turbo-3.5
 
 기능
 1. 수어 퀴즈 풀이
 2. 수어 사전 검색
-3. 수어 번역(수어 번역 서버는 gpt 리포지토리)
+3. 수어 번역
 
 
 ### - 메인 화면
