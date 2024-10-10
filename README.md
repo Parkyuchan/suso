@@ -4,7 +4,7 @@
 
 사용 Framework : Spring boot, Django, Mediapipe
 사용 Language : Java, Python, HTML, CSS
-사용 DB : MySQL
+사용 DB : MariaDB
 사용 OpenAI  모델 : gpt-turbo-3.5
 
 기능
