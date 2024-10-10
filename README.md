@@ -2,7 +2,7 @@
 
 주제 : 농인들과의 소통을 위한 수어 실시간 통역 서비스
 
-사용 Framework : Spring boot, Django, Mediapipe
+사용 Framework 및 Library: Spring boot, Django, Mediapipe, OpenCV, TensorFlow
 
 사용 Language : Java, Python, HTML, CSS
 
