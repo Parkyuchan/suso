@@ -20,30 +20,6 @@
     
     
 ![졸프_메인](https://github.com/user-attachments/assets/e31e67bb-beef-48a9-a399-ae16a179d237)
-
-    
-### - 회원 가입
-    
-    
-![졸프_회원가입](https://github.com/user-attachments/assets/e961b710-8519-47fc-9a57-a2745404e9c4)
-
-    
-### - 로그인
-    
-    
-![졸프_로그인](https://github.com/user-attachments/assets/9bbe2e8e-f48d-4ff3-b768-6267aa4fb74b)
-
-    
-- 마이페이지
-    
-    
-    
-![졸프_마이페이지](https://github.com/user-attachments/assets/fe434ad1-bb0b-426d-ad4b-97254b7314d1)
-
-    
-    
-![졸프_정보수정](https://github.com/user-attachments/assets/f5fcb1fc-6561-43c8-8d6b-f34d22adfeb3)
-
     
 ### - 수어 번역
     
