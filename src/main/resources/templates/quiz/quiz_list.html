@@ -253,7 +253,8 @@
             <td>
                 <a th:text="${rowStat.index + 1} + '번 문제 풀기'" th:href="@{/quiz/{id}(id=${quiz.quiz_id})}"></a>
             </td>
-            <td>DATA</td>
+            <td th:text="${quiz.sign.pum_desc}"></td>
+
         </tr>
         </tbody>
     </table>

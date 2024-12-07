@@ -73,6 +73,32 @@
       border-radius: 5px; /* 둥근 모서리 효과 추가 */
     }
 
+   .post {
+  width: 100%; /* 부모 요소의 너비를 전체 너비로 설정 */
+  text-align: right; /* 버튼을 오른쪽으로 정렬 */
+  padding-right: 5%; /* 오른쪽에 패딩 추가로 약간의 여백 */
+}
+
+
+  .delete-sign-button, .alter-sign-button {
+    display: inline-block;
+    background-color: #00BFFF;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 15px 30px;
+    font-size: 30px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    font-family: 'HakgyoansimBareondotumB', sans-serif;
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
+}
+
+
+
+
     .video-container {
   display: flex;
   justify-content: center; /* 가로로 중앙 정렬 */
@@ -170,6 +196,13 @@ video {
     <div class="fixed-title"><p>한</p>수 <p>사</p>전</div>
   </div>
 
+
+  <div class="post">
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{/sign/delete(id = ${sign.id})}" class="delete-sign-button">수어 삭제하기</a>
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{/sign/update/{id}(id = ${sign.id})}" class="alter-sign-button">수어 수정하기</a>
+  </div>
+
+
   <h1 class="title">한국어 표제어 | <span class="title-highlight" th:text="${sign.title}"></span></h1>
   <div class="video-container">
     <video muted autoplay loop>
@@ -186,8 +219,7 @@ video {
     </div>
   </div>
 
-  <a sec:authorize="hasRole('ADMIN')" th:href="@{/sign/delete(id = ${sign.id})}" style="font-size : 70px; text-decoration: none;">수어 삭제하기</a>
-  <a sec:authorize="hasRole('ADMIN')" th:href="@{/sign/update/{id}(id = ${sign.id})}" style="font-size : 70px; text-decoration: none;">수어 수정하기</a>
+
 
   <div th:replace="navbar :: navbar"></div>
 

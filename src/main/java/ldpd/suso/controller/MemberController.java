@@ -2,7 +2,6 @@ package ldpd.suso.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.constraints.Pattern;
 import ldpd.suso.entity.Member;
 import ldpd.suso.repository.MemberRepository;
 import ldpd.suso.security.MemberCreateForm;
@@ -75,6 +74,7 @@ public class MemberController {
 
     @GetMapping("/login")   //로그인에 대한 Get 방식 프로토콜 메소드, post 방식 로그인은 SecurityConfig에서 대신 수행한다.
     public String login() {
+
         return "member/login_form";
     }
 

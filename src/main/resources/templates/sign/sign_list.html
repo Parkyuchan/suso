@@ -281,7 +281,6 @@
 
 
   <div th:each="sign : ${list}" class="video-item">
-<!--    <img src="https://via.placeholder.com/80" alt="Video Thumbnail">-->
     <div class="video">
       <video th:src="@{${sign.filepath}}" controls muted autoplay loop></video>
     </div>
