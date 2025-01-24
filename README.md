@@ -2,13 +2,13 @@
 
 주제 : 농인들과의 소통을 위한 수어 실시간 통역 서비스
 
-사용 Framework 및 Library: Spring boot, Django, Mediapipe, OpenCV, TensorFlow
+사용 Framework 및 Library: <img src="https://img.shields.io/badge/Spring Boot-3766AB?style=flat-square&logo=Spring Boot&logoColor=white"/>, <img src="https://img.shields.io/badge/Django-3766AB?style=flat-square&logo=Django&logoColor=white"/>, <img src="https://img.shields.io/badge/Mediapipe-3766AB?style=flat-square&logo=Mediapipe&logoColor=white"/>, <img src="https://img.shields.io/badge/OpenCV-3766AB?style=flat-square&logo=OpenCV&logoColor=white"/>, <img src="https://img.shields.io/badge/Tensorflow-3766AB?style=flat-square&logo=Tensorflow&logoColor=white"/>
 
-사용 Language : Java, Python, HTML, CSS
+사용 Language : <img src="https://img.shields.io/badge/Java-3766AB?style=flat-square&logo=Java&logoColor=white"/>, <img src="https://img.shields.io/badge/Python-3766AB?style=flat-square&logo=Python&logoColor=white"/>, <img src="https://img.shields.io/badge/HTML-3766AB?style=flat-square&logo=HTML&logoColor=white"/>, <img src="https://img.shields.io/badge/CSS-3766AB?style=flat-square&logo=CSS&logoColor=white"/>
 
-사용 DB : MariaDB
+사용 DB : <img src="https://img.shields.io/badge/MariaDB-3766AB?style=flat-square&logo=MariaDB&logoColor=white"/>
 
-사용 OpenAI  모델 : gpt-turbo-3.5
+사용 OpenAI  모델 : <img src="https://img.shields.io/badge/gpt 3.5 turbo-3766AB?style=flat-square&logo=HTML&logoColor=white"/>, <img src="https://img.shields.io/badge/gpt 4o-3766AB?style=flat-square&logo=gpt-4o&logoColor=white"/>
 
 기능
 1. 수어 퀴즈 풀이
