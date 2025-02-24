@@ -4,7 +4,7 @@
 
 사용 Framework 및 Library: <img src="https://img.shields.io/badge/Spring Boot-3766AB?style=flat-square&logo=Spring Boot&logoColor=white"/>, <img src="https://img.shields.io/badge/Django-3766AB?style=flat-square&logo=Django&logoColor=white"/>, <img src="https://img.shields.io/badge/Mediapipe-3766AB?style=flat-square&logo=Mediapipe&logoColor=white"/>, <img src="https://img.shields.io/badge/OpenCV-3766AB?style=flat-square&logo=OpenCV&logoColor=white"/>, <img src="https://img.shields.io/badge/Tensorflow-3766AB?style=flat-square&logo=Tensorflow&logoColor=white"/>
 
-사용 Language : <img src="https://img.shields.io/badge/Java-3766AB?style=flat-square&logo=Java&logoColor=white"/>, <img src="https://img.shields.io/badge/Python-3766AB?style=flat-square&logo=Python&logoColor=white"/>, <img src="https://img.shields.io/badge/HTML-3766AB?style=flat-square&logo=HTML&logoColor=white"/>, <img src="https://img.shields.io/badge/CSS-3766AB?style=flat-square&logo=CSS&logoColor=white"/>
+사용 Language : <img src="https://img.shields.io/badge/Java-3766AB?style=flat-square&logo=Java&logoColor=white"/>, <img src="https://img.shields.io/badge/Python-3766AB?style=flat-square&logo=Python&logoColor=white"/>, <img src="https://img.shields.io/badge/HTML5-3766AB?style=flat-square&logo=HTML5&logoColor=white"/>, <img src="https://img.shields.io/badge/CSS-3766AB?style=flat-square&logo=CSS&logoColor=white"/>
 
 사용 DB : <img src="https://img.shields.io/badge/MariaDB-3766AB?style=flat-square&logo=MariaDB&logoColor=white"/>
 
@@ -20,6 +20,8 @@
 <img src="https://github.com/user-attachments/assets/e31e67bb-beef-48a9-a399-ae16a179d237" width="25%">
 
 ### - 수어 번역
+<img src="https://github.com/user-attachments/assets/69bea2b1-64d3-4d20-881f-795c6291905d" width="25%"/>
+
 <img src="https://github.com/user-attachments/assets/a65feaab-fdb6-4e59-839e-ad059a19eae9" width="25%">
 
 ### - 수어 사전
@@ -30,7 +32,7 @@
 <img src="https://github.com/user-attachments/assets/717180f8-0733-4aba-a5bb-9381b1ab6b69" width="25%">
 
 ### - 수어 퀴즈
-<img src="https://github.com/user-attachments/assets/2a82eb65-c218-4095-90be-d64f8d7262f7" width="25%">
+<img src="https://github.com/user-attachments/assets/c6dccbbc-387a-4042-b4b2-cba58569c575" width="25%"/>
 
 <img src="https://github.com/user-attachments/assets/569b8f25-9718-4198-9cf2-487d6345024a" width="25%">
 
