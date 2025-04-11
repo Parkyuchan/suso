@@ -1,20 +1,20 @@
 이두박두팀 졸업 프로젝트
 
-주제 : 농인들과의 소통을 위한 수어 실시간 통역 서비스
+## 📝 농인들과의 소통을 위한 수어 실시간 통역 서비스
 
-사용 Framework 및 Library: <img src="https://img.shields.io/badge/Spring Boot-3766AB?style=flat-square&logo=Spring Boot&logoColor=white"/>, <img src="https://img.shields.io/badge/Django-3766AB?style=flat-square&logo=Django&logoColor=white"/>, <img src="https://img.shields.io/badge/Mediapipe-3766AB?style=flat-square&logo=Mediapipe&logoColor=white"/>, <img src="https://img.shields.io/badge/OpenCV-3766AB?style=flat-square&logo=OpenCV&logoColor=white"/>, <img src="https://img.shields.io/badge/Tensorflow-3766AB?style=flat-square&logo=Tensorflow&logoColor=white"/>
+다음과 같은 기능을 수행할 수 있습니다.
+- 로그인
+- 회원가입
+- 회원정보 수정
+- 수어 사전
+- 수어 퀴즈
+- 수어 번역
 
-사용 Language : <img src="https://img.shields.io/badge/Java-3766AB?style=flat-square&logo=Java&logoColor=white"/>, <img src="https://img.shields.io/badge/Python-3766AB?style=flat-square&logo=Python&logoColor=white"/>, <img src="https://img.shields.io/badge/HTML5-3766AB?style=flat-square&logo=HTML5&logoColor=white"/>, <img src="https://img.shields.io/badge/CSS-3766AB?style=flat-square&logo=CSS&logoColor=white"/>
+## 수어 번역 서버
+(https://github.com/Parkyuchan/gpt)
 
-사용 DB : <img src="https://img.shields.io/badge/MariaDB-3766AB?style=flat-square&logo=MariaDB&logoColor=white"/>
 
-사용 OpenAI  모델 : <img src="https://img.shields.io/badge/gpt 3.5 turbo-3766AB?style=flat-square&logo=HTML&logoColor=white"/>, <img src="https://img.shields.io/badge/gpt 4o-3766AB?style=flat-square&logo=gpt-4o&logoColor=white"/>
-
-기능
-1. 수어 퀴즈 풀이
-2. 수어 사전 검색
-3. 수어 번역
-
+## 🎥 패이지
 
 ### - 메인 화면
 <img src="https://github.com/user-attachments/assets/e31e67bb-beef-48a9-a399-ae16a179d237" width="25%">
@@ -37,4 +37,39 @@
 <img src="https://github.com/user-attachments/assets/569b8f25-9718-4198-9cf2-487d6345024a" width="25%">
 
 <img src="https://github.com/user-attachments/assets/6dbb683a-6c42-47b7-9fc1-4453ef20e3d8" width="25%">
+
+
+## 🗂️ 아키텍처 구조
+
+
+<br />
+
+## ⚙ 기술 스택
+### Back-end
+<div>
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Java.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/SpringBoot.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/SpringSecurity.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/SpringDataJPA.png?raw=true" width="80">
+<img src="https://img.shields.io/badge/Python-3766AB?style=flat-square&logo=Python&logoColor=white"/>
+<img src="https://img.shields.io/badge/Django-3766AB?style=flat-square&logo=Django&logoColor=white"/>
+  <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/JWT.png?raw=true" width="80">
+  <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Ajax.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Mysql.png?raw=true" width="80">
+</div>
+
+### Front-end
+<div>
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/HTMLCSS.png?raw=true" width="80">
+<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/JavaScript.png?raw=true" width="80">
+</div>
+
+### AI
+<div>
+  <img src="https://img.shields.io/badge/Mediapipe-3766AB?style=flat-square&logo=Mediapipe&logoColor=white"/>
+  <img src="https://img.shields.io/badge/OpenCV-3766AB?style=flat-square&logo=OpenCV&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Tensorflow-3766AB?style=flat-square&logo=Tensorflow&logoColor=white"/>
+</div>
+
+<br />
 
